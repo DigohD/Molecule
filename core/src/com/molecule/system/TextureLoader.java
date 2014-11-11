@@ -10,6 +10,8 @@ public class TextureLoader{
 	public static HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	
 	public TextureLoader(){
+		textures.put("bg", new Texture(Gdx.files.internal("bg.png")));
+		
 		textures.put("core", new Texture(Gdx.files.internal("core.png")));
 		textures.put("particle", new Texture(Gdx.files.internal("particle.png")));
 		textures.put("path", new Texture(Gdx.files.internal("path.png")));
