@@ -105,15 +105,22 @@ public class Game extends ApplicationAdapter{
 		batch.end();
 	}
 
-	 @Override
-	 public void resize(int width, int height) {
-	      cam.viewportWidth = WIDTH;                 // Viewport of 30 units!
-	      cam.viewportHeight = WIDTH* height/width; // Lets keep things in proportion.
-	      cam.update();
-	 }
+	@Override
+	public void resize(int width, int height) {
+	    cam.viewportWidth = WIDTH;                 // Viewport of 30 units!
+	    cam.viewportHeight = WIDTH* height/width; // Lets keep things in proportion.
+	    cam.update();
+	}
+	 
+	@Override
+	public void dispose(){
+		EntityManager.clear();
+	}
 
 	public static OrthographicCamera getCam() {
 		return cam;
 	}
+	
+	
 	
 }
