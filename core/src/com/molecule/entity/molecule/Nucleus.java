@@ -2,23 +2,27 @@ package com.molecule.entity.molecule;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.util.TextureLoader;
 
 public class Nucleus{
 
-	private Texture img, dot;
+	private Texture img;
 	private float targetX, targetY, x, y;
 	private float centerOffsetX, centerOffsetY;
+	
+	private StatsSheet stats = new StatsSheet();
 	
 	private Particle child, child2, child3;
 	
 	public Nucleus(){
 		img = TextureLoader.textures.get("core");
-		dot = TextureLoader.textures.get("dot");
 		
 		child = new Particle(this);
 		child2 = new Particle(this, 6.28f / 3, 3.14f / 3);
 		child3 = new Particle(this, (6.28f / 3) * 2, (6.28f / 3) * 2);
+		
+		stats = new StatsSheet();
 		
 		centerOffsetX = img.getWidth() / 2;
 		centerOffsetY = img.getHeight() / 2;
@@ -39,7 +43,6 @@ public class Nucleus{
 		child.draw(batch);
 		child2.draw(batch);
 		child3.draw(batch);
-//		batch.draw(dot, x, y);
 	}
 
 	public float getTargetX() {
