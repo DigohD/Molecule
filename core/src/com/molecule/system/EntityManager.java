@@ -10,6 +10,7 @@ import com.molecule.entity.Entity;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.player.Player;
+import com.molecule.system.util.EnemyLogic;
 
 public class EntityManager {
 	
@@ -22,6 +23,7 @@ public class EntityManager {
 	
 	public EntityManager(){
 		player = new Player(new Vector2(100, 100));
+		new EnemyLogic(player.getNucleus());
 	}
 	
 	public static void addEntity(Entity e){

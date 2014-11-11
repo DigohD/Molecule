@@ -55,6 +55,10 @@ public class Player extends Mob{
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+
+	public Nucleus getNucleus() {
+		return nucleus;
+	}
 	
 	
 	

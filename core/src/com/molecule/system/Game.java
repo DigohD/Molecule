@@ -1,5 +1,7 @@
 package com.molecule.system;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.enemy.Enemy;
+import com.molecule.entity.particle.Particle;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.TextureLoader;
 
@@ -23,6 +27,8 @@ public class Game extends ApplicationAdapter{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	
 	public float scaleX, scaleY;
 	
 	@Override
@@ -32,6 +38,12 @@ public class Game extends ApplicationAdapter{
 		batch = new SpriteBatch();
 		img = TextureLoader.textures.get("bg");
 		eManager = new EntityManager();
+		
+		enemies.add(new Enemy());
+		enemies.add(new Enemy());
+		enemies.add(new Enemy());
+		enemies.add(new Enemy());
+		enemies.add(new Enemy());
 		
 		joyStick = new JoyStick();
 		
@@ -78,6 +90,8 @@ public class Game extends ApplicationAdapter{
 		
 		batch.setProjectionMatrix(cam.combined);
 	
+		for(Enemy e : enemies)
+			e.draw(batch);
 		
 		eManager.render(batch);
 		batch.end();

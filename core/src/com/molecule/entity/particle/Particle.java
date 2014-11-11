@@ -1,10 +1,13 @@
-package com.molecule.entity.molecule;
+package com.molecule.entity.particle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.molecule.Nucleus;
+import com.molecule.entity.molecule.Path;
 import com.molecule.system.util.TextureLoader;
 
 
@@ -17,12 +20,13 @@ public class Particle{
 	private Texture img, dot;
 	
 	private LinkedList<Path> trail = new LinkedList<Path>();
+	private ArrayList<ParticleMod> mods = new ArrayList<ParticleMod>();
 	
 	private float sineTime, angleOffset, sineOffset, ellipseAngle;
 	
 	private int boostStacks;
 	
-	private float sineOffsetX, sineOffsetY, centerX, centerY, drawOffsetX, drawOffsetY; 
+	private float centerX, centerY, drawOffsetX, drawOffsetY; 
 	
 	public Particle(Nucleus parent){
 		this.parent = parent;
@@ -94,8 +98,18 @@ public class Particle{
 			p.draw(batch);
 		}
 		
+		for(ParticleMod pm : mods)
+			pm.tick(1);
+		
 		batch.draw(img, x, y);
-//		batch.draw(dot, x, y);
+	}
+	
+	public void addParticleMod(ParticleMod mod){
+		mods.add(mod);
+	}
+	
+	public Vector2 getCenter(){
+		return new Vector2(centerX, centerY);
 	}
 	
 }
