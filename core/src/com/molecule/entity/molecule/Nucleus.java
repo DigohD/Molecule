@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.util.TextureLoader;
@@ -18,19 +19,14 @@ public class Nucleus{
 	private float sineX, sineY, sineTime;
 	private Color tint;
 	
+	private Rectangle rect;
+	
 	private StatsSheet stats = new StatsSheet();
 	
 	ArrayList<Particle> children = new ArrayList<Particle>();
 	
 	public Nucleus(){
-		img = new Sprite(TextureLoader.textures.get("core"));
-		
-		tint = new Color(1f, 1f, 1f, 1f);
-		
-		stats = new StatsSheet();
-		
-		centerOffsetX = img.getWidth() / 2;
-		centerOffsetY = img.getHeight() / 2;
+		this("core");
 	}
 	
 	public Nucleus(String image){
@@ -42,6 +38,8 @@ public class Nucleus{
 		
 		centerOffsetX = img.getWidth() / 2;
 		centerOffsetY = img.getHeight() / 2;
+		
+		rect = new Rectangle(0,0, img.getWidth(), img.getHeight());
 	}
 	
 	public void draw(SpriteBatch batch, float targetX, float targetY){
@@ -52,6 +50,9 @@ public class Nucleus{
 		
 		x = targetX - centerOffsetX + sineX;
 		y = targetY - centerOffsetY + sineY;
+		
+		rect.setX(x);
+		rect.setY(y);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);
@@ -99,6 +100,10 @@ public class Nucleus{
 
 	public Sprite getImg() {
 		return img;
+	}
+
+	public Rectangle getRect() {
+		return rect;
 	}
 	
 	

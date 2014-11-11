@@ -13,7 +13,7 @@ public class Player extends DynamicEntity implements Collideable{
 	private Vector2 targetVel;
 	private Nucleus nucleus;
 	private boolean update;
-	private Rectangle rect;
+	
 	
 	public Player(Vector2 position){
 		super(position);
@@ -21,13 +21,12 @@ public class Player extends DynamicEntity implements Collideable{
 		velocity = new Vector2(0,0);
 		targetVel = new Vector2(0,0);
 		
-		rect = new Rectangle(position.x, position.y, nucleus.getImg().getWidth(), nucleus.getImg().getHeight());
+		
 	}
 
 	@Override
 	public void tick(float dt) {
-		rect.setX(position.x);
-		rect.setY(position.y);
+		
 		if(!update){
 			targetVel.x = 0;
 			targetVel.y = 0;
@@ -74,7 +73,7 @@ public class Player extends DynamicEntity implements Collideable{
 
 	@Override
 	public Rectangle getRect() {
-		return rect;
+		return nucleus.getRect();
 	}
 	
 	
