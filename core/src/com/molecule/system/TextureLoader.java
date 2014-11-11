@@ -12,6 +12,10 @@ public class TextureLoader{
 	public TextureLoader(){
 		textures.put("core", new Texture(Gdx.files.internal("core.png")));
 		textures.put("particle", new Texture(Gdx.files.internal("particle.png")));
+		textures.put("path", new Texture(Gdx.files.internal("path.png")));
+		
+		textures.put("dot", new Texture(Gdx.files.internal("dot.png")));
+		textures.put("dot2", new Texture(Gdx.files.internal("dot2.png")));
 	}
 	
 }
