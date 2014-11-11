@@ -9,6 +9,8 @@ import com.molecule.entity.Entity;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.enemy.Enemy;
+import com.molecule.entity.particle.offensive.Projectile;
+import com.molecule.entity.particle.offensive.Projectile.Type;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.EnemyLogic;
 
@@ -33,6 +35,13 @@ public class EntityManager {
 			rToAdd.add((Renderable) e);
 		if(e instanceof Enemy)
 			CollisionManager.addEnemy((Enemy)e);
+		if(e instanceof Projectile){
+			Projectile p = (Projectile) e;
+			if (p.getType() == Type.ENEMY)
+				CollisionManager.addEnemyProjectile(p);
+			if (p.getType() == Type.PLAYER)
+				CollisionManager.addPlayerProjectile(p);
+		}
 	}
 	
 	public static void removeEntity(Entity e){
@@ -42,6 +51,13 @@ public class EntityManager {
 			renderables.remove((Renderable) e);
 		if(e instanceof Enemy)
 			CollisionManager.removeEnemy((Enemy)e);
+		if(e instanceof Projectile){
+			Projectile p = (Projectile) e;
+			if (p.getType() == Type.ENEMY)
+				CollisionManager.removeEnemyProjectile(p);
+			if (p.getType() == Type.PLAYER)
+				CollisionManager.removePlayerProjectile(p);
+		}
 	}
 	
 	public static void clear(){

@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Collideable;
-import com.molecule.entity.Mob;
+import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.offensive.QuarkGun;
 import com.molecule.system.Util;
 
-public class Enemy extends Mob implements Collideable{
+public class Enemy extends DynamicEntity implements Collideable{
 
 	private Nucleus nucleus;
 	
