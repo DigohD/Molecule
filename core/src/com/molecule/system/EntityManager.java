@@ -3,12 +3,12 @@ package com.molecule.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Entity;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
+import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.EnemyLogic;
 
@@ -31,6 +31,8 @@ public class EntityManager {
 			tToAdd.add((Tickable) e);
 		if(e instanceof Renderable)
 			rToAdd.add((Renderable) e);
+		if(e instanceof Enemy)
+			CollisionManager.addEnemy((Enemy)e);
 	}
 	
 	public static void removeEntity(Entity e){
@@ -38,9 +40,12 @@ public class EntityManager {
 			tickables.remove((Tickable) e);
 		if(e instanceof Renderable)
 			renderables.remove((Renderable) e);
+		if(e instanceof Enemy)
+			CollisionManager.removeEnemy((Enemy)e);
 	}
 	
 	public static void clear(){
+		CollisionManager.clear();
 		tickables.clear();
 		tToAdd.clear();
 		renderables.clear();
@@ -67,6 +72,7 @@ public class EntityManager {
 		rToAdd.clear();
 		
 		removeDeadEntities();
+		CollisionManager.collisionCheck(player);
 		
 		if(player.isLive())
 			player.tick(dt);
