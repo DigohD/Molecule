@@ -3,7 +3,9 @@ package com.molecule.entity.particle;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.molecule.Nucleus;
@@ -17,12 +19,14 @@ import com.molecule.system.Util;
 public class Particle{
 
 	private Nucleus parent;
-	private Texture img, dot;
+	private Sprite img, dot;
 	
 	private LinkedList<Path> trail = new LinkedList<Path>();
 	private ArrayList<ParticleMod> mods = new ArrayList<ParticleMod>();
 	
 	private float sineTime, angleOffset, sineOffset, ellipseAngle;
+	
+	private Color tint;
 	
 	private int boostStacks;
 	
@@ -30,8 +34,7 @@ public class Particle{
 	
 	public Particle(Nucleus parent){
 		this.parent = parent;
-		img = TextureLoader.textures.get("particle");
-		dot = TextureLoader.textures.get("dot2");
+		img = new Sprite(TextureLoader.textures.get("particle"));
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -39,8 +42,7 @@ public class Particle{
 	
 	public Particle(Nucleus parent, float angleOffset){
 		this.parent = parent;
-		img = TextureLoader.textures.get("particle");
-		dot = TextureLoader.textures.get("dot2");
+		img = new Sprite(TextureLoader.textures.get("particle"));
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -50,8 +52,7 @@ public class Particle{
 	
 	public Particle(Nucleus parent, float angleOffset, float sineOffset){
 		this.parent = parent;
-		img = TextureLoader.textures.get("particle");
-		dot = TextureLoader.textures.get("dot2");
+		img = new Sprite(TextureLoader.textures.get("particle"));
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -101,7 +102,9 @@ public class Particle{
 		for(ParticleMod pm : mods)
 			pm.tick(1);
 		
-		batch.draw(img, x, y);
+		img.setColor(tint);
+		img.setPosition(x, y);
+		img.draw(batch);
 	}
 	
 	public void addParticleMod(ParticleMod mod){
@@ -110,6 +113,10 @@ public class Particle{
 	
 	public Vector2 getCenter(){
 		return new Vector2(centerX, centerY);
+	}
+	
+	public void setTint(float r, float g, float b, float a) {
+		this.tint = new Color(r, g, b, a);
 	}
 	
 }
