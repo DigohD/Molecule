@@ -33,9 +33,9 @@ public class JoyStick implements InputProcessor, Renderable{
 			float dY = y - 380;
 			dX = dX / 8;
 			dY = dY / 8;
-			EntityManager.getPlayer().setTargetVel(dX, dY);
+			//EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
-			EntityManager.getPlayer().setUpdate(false);
+			//EntityManager.getPlayer().setUpdate(false);
 		}
 		
 		return true;
@@ -43,7 +43,7 @@ public class JoyStick implements InputProcessor, Renderable{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		EntityManager.getPlayer().setUpdate(false);
+		//EntityManager.getPlayer().setUpdate(false);
 		return true;
 	}
 
@@ -57,9 +57,9 @@ public class JoyStick implements InputProcessor, Renderable{
 			float dY = y - 380;
 			dX = dX / 8;
 			dY = dY / 8;
-			EntityManager.getPlayer().setTargetVel(dX, dY);
+//			EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
-			EntityManager.getPlayer().setUpdate(false);
+//			EntityManager.getPlayer().setUpdate(false);
 		}
 		
 		return true;

@@ -6,16 +6,19 @@ import com.molecule.system.util.TextureLoader;
 
 public class Nucleus{
 
-	private Texture img;
+	private Texture img, dot;
 	private float targetX, targetY, x, y;
 	private float centerOffsetX, centerOffsetY;
 	
-	private Particle child;
+	private Particle child, child2, child3;
 	
 	public Nucleus(){
 		img = TextureLoader.textures.get("core");
+		dot = TextureLoader.textures.get("dot");
 		
 		child = new Particle(this);
+		child2 = new Particle(this, 6.28f / 3, 3.14f / 3);
+		child3 = new Particle(this, (6.28f / 3) * 2, (6.28f / 3) * 2);
 		
 		centerOffsetX = img.getWidth() / 2;
 		centerOffsetY = img.getHeight() / 2;
@@ -29,11 +32,14 @@ public class Nucleus{
 	}
 	
 	public void draw(SpriteBatch batch){
-		x = targetX;
-		y = targetY;
+		x = targetX - centerOffsetX;
+		y = targetY - centerOffsetY;
 		
-		batch.draw(img, x - centerOffsetX, y - centerOffsetY);
+		batch.draw(img, x, y);
 		child.draw(batch);
+		child2.draw(batch);
+		child3.draw(batch);
+//		batch.draw(dot, x, y);
 	}
 
 	public float getTargetX() {
@@ -57,7 +63,7 @@ public class Nucleus{
 	}
 	
 	public float getCenterY(){
-		return y + centerOffsetY;
+		return y + centerOffsetX;
 	}
 	
 	

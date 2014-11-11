@@ -21,7 +21,7 @@ public class EntityManager {
 	private static Player player;
 	
 	public EntityManager(){
-		player = new Player(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		//player = new Player(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
 	}
 	
 	public static void addEntity(Entity e){
