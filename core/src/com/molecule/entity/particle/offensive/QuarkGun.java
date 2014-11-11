@@ -14,8 +14,8 @@ public class QuarkGun extends ParticleMod{
 	
 	private class Quark extends Projectile{
 		public Quark(Vector2 pos, Vector2 v){
-			super(pos, v, "quark", 45);
-			type = Type.PLAYER;
+			super(pos, v, "quark", 4500);
+			type = Type.ENEMY;
 			EntityManager.addEntity(this);
 		}
 	}

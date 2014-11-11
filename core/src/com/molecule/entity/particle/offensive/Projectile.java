@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Collideable;
 import com.molecule.entity.DynamicEntity;
+import com.molecule.entity.player.Player;
 import com.molecule.system.util.TextureLoader;
 
 public class Projectile extends DynamicEntity implements Collideable{
@@ -17,6 +18,7 @@ public class Projectile extends DynamicEntity implements Collideable{
 	private Sprite img;
 	private Vector2 v;
 	private int lifetime;
+	protected Rectangle rect;
 	
 	protected Type type;
 	
@@ -27,10 +29,14 @@ public class Projectile extends DynamicEntity implements Collideable{
 		position = pos.cpy();
 		this.v = v;
 		this.lifetime = lifetime;
+		
+		rect = new Rectangle(position.x, position.y, img.getWidth(), img.getHeight());
 	}
 
 	@Override
 	public void tick(float dt) {
+		rect.setX(position.x);
+		rect.setY(position.y);
 		position.add(v);
 		lifetime--;
 		if(lifetime < 0)
@@ -45,14 +51,15 @@ public class Projectile extends DynamicEntity implements Collideable{
 
 	@Override
 	public void collisionWith(Collideable obj) {
-		// TODO Auto-generated method stub
+		if(obj instanceof Player){
+			live = false;
+		}
 		
 	}
 
 	@Override
 	public Rectangle getRect() {
-		// TODO Auto-generated method stub
-		return null;
+		return rect;
 	}
 
 	public Type getType() {

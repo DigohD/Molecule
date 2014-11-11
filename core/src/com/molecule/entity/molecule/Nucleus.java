@@ -96,6 +96,10 @@ public class Nucleus{
 	public void setTint(float r, float g, float b, float a) {
 		this.tint = new Color(r, g, b, a);
 	}
+
+	public Sprite getImg() {
+		return img;
+	}
 	
 	
 	
