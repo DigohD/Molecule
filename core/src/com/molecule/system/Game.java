@@ -47,10 +47,18 @@ public class Game extends ApplicationAdapter{
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
 	}
-	
+	Vector2 diff = new Vector2(0,0);
+	Vector2 pos = new Vector2(0,0);
 	public void tick(float dt){
 		eManager.tick(dt);
-		cam.position.set(EntityManager.getPlayer().getPosition().x, EntityManager.getPlayer().getPosition().y, 0);
+		
+		diff.x = EntityManager.getPlayer().getPosition().x - cam.position.x ;
+		diff.y = EntityManager.getPlayer().getPosition().y - cam.position.y;
+		
+		pos.x = cam.position.x + (diff.x / 20.0f); 
+		pos.y = cam.position.y + (diff.y / 20.0f); 
+	
+		cam.position.set(pos.x, pos.y, 0);
 	}
 
 	float r;
@@ -60,8 +68,6 @@ public class Game extends ApplicationAdapter{
 		tick(Gdx.graphics.getDeltaTime()*10);
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-	
 		
 		batch.begin();
 		Sprite bgS = new Sprite(img);
