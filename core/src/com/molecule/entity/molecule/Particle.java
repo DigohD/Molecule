@@ -4,8 +4,12 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.molecule.system.TextureLoader;
+
+import com.molecule.system.util.TextureLoader;
+
+
 import com.molecule.system.Util;
+
 
 public class Particle{
 
