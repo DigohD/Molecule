@@ -1,10 +1,8 @@
 package com.molecule.entity.molecule;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.molecule.system.TextureLoader;
+import com.molecule.system.util.TextureLoader;
 
 public class Nucleus{
 

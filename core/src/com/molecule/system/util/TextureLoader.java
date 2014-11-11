@@ -1,4 +1,4 @@
-package com.molecule.system;
+package com.molecule.system.util;
 
 import java.util.HashMap;
 
@@ -12,6 +12,7 @@ public class TextureLoader{
 	public TextureLoader(){
 		textures.put("core", new Texture(Gdx.files.internal("core.png")));
 		textures.put("particle", new Texture(Gdx.files.internal("particle.png")));
+		textures.put("joystick", new Texture(Gdx.files.internal("joystick.png")));
 	}
 	
 }
