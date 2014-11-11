@@ -18,7 +18,7 @@ public class Game extends ApplicationAdapter{
 	private JoyStick joyStick;
 	
 	private Texture img;
-	private OrthographicCamera cam;
+	private static OrthographicCamera cam;
 	
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
@@ -50,6 +50,7 @@ public class Game extends ApplicationAdapter{
 	
 	public void tick(float dt){
 		eManager.tick(dt);
+		cam.position.set(EntityManager.getPlayer().getPosition().x, EntityManager.getPlayer().getPosition().y, 0);
 	}
 
 	float r;
@@ -61,7 +62,10 @@ public class Game extends ApplicationAdapter{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
+		joyStick.render(batch);
+		batch.end();
 		
+		batch.begin();
 		Sprite bgS = new Sprite(img);
 		r = r + 0.01f;
 		bgS.scale(4);
@@ -70,10 +74,11 @@ public class Game extends ApplicationAdapter{
 		
 		bgS.draw(batch);
 
-		cam.update();                                                         
-		batch.setProjectionMatrix(cam.combined);
+		cam.update();    
 		
-		joyStick.render(batch);
+		batch.setProjectionMatrix(cam.combined);
+	
+		
 		eManager.render(batch);
 		batch.end();
 	}
@@ -84,5 +89,9 @@ public class Game extends ApplicationAdapter{
 	      cam.viewportHeight = WIDTH* height/width; // Lets keep things in proportion.
 	      cam.update();
 	 }
+
+	public static OrthographicCamera getCam() {
+		return cam;
+	}
 	
 }
