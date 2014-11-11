@@ -57,9 +57,10 @@ public class Game extends ApplicationAdapter{
 	@Override
 	public void render () {
 		tick(Gdx.graphics.getDeltaTime()*10);
-		
-		
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		batch.begin();
 		
 		Sprite bgS = new Sprite(img);
 		r = r + 0.01f;
@@ -71,9 +72,7 @@ public class Game extends ApplicationAdapter{
 
 		cam.update();                                                         
 		batch.setProjectionMatrix(cam.combined);
-
 		
-		batch.begin();
 		joyStick.render(batch);
 		eManager.render(batch);
 		batch.end();
