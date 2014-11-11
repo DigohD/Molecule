@@ -61,9 +61,7 @@ public class Game extends ApplicationAdapter{
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		batch.begin();
-		joyStick.render(batch);
-		batch.end();
+	
 		
 		batch.begin();
 		Sprite bgS = new Sprite(img);
@@ -77,7 +75,7 @@ public class Game extends ApplicationAdapter{
 		cam.update();    
 		
 		batch.setProjectionMatrix(cam.combined);
-	
+		joyStick.render(batch);
 		
 		eManager.render(batch);
 		batch.end();
