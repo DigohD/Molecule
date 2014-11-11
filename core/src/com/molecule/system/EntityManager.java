@@ -21,7 +21,7 @@ public class EntityManager {
 	private static Player player;
 	
 	public EntityManager(){
-		//player = new Player(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		player = new Player(new Vector2(100, 100));
 	}
 	
 	public static void addEntity(Entity e){
@@ -66,11 +66,16 @@ public class EntityManager {
 		
 		removeDeadEntities();
 		
+		if(player.isLive())
+			player.tick(dt);
+		
 		for(Tickable t : tickables)
 			t.tick(dt);
 	}
 	
 	public void render(SpriteBatch batch){
+		if(player.isLive())
+			player.render(batch);
 		for(Renderable r : renderables)
 			r.render(batch);
 	}

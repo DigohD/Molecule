@@ -1,67 +1,61 @@
 package com.molecule.entity.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.Mob;
 import com.molecule.entity.molecule.Nucleus;
+import com.molecule.system.util.PhysicsUtil;
 
-public class Player implements InputProcessor{
+public class Player extends Mob{
 
-	float targetX, targetY;
+	private Vector2 targetVel;
 	private Nucleus nucleus;
+	private boolean update;
 	
-	public Player(){
+	public Player(Vector2 position){
+		super(position);
 		nucleus = new Nucleus();
+		velocity = new Vector2(0,0);
+		targetVel = new Vector2(0,0);
 	}
 	
-	public void draw(SpriteBatch batch){
-		nucleus.draw(batch);
+	public void render(SpriteBatch batch){
+		nucleus.draw(batch, position.x, position.y);
+	}
+
+	@Override
+	public void tick(float dt) {
+		
+		if(!update){
+			targetVel.x = 0;
+			targetVel.y = 0;
+		}
+		
+		velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
+		velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
+		
+		position = position.add(velocity);
+		
+	}
+
+	public Vector2 getTargetVel() {
+		return targetVel;
+	}
+
+	public void setTargetVel(float x, float y) {
+		targetVel.x = x;
+		targetVel.y = y;
+		update = true;
+	}
+
+	public boolean isUpdate() {
+		return update;
+	}
+
+	public void setUpdate(boolean update) {
+		this.update = update;
 	}
 	
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		targetX = screenX;
-		targetY = Gdx.graphics.getHeight() - screenY;
-		
-		nucleus.setTargetX(targetX);
-		nucleus.setTargetY(targetY);
-		
-        return true;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
+	
 	
 }

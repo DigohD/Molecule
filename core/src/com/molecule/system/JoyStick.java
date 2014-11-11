@@ -14,28 +14,29 @@ public class JoyStick implements InputProcessor, Renderable{
 	private Texture texture;
 	
 	public JoyStick(){
-		position = new Vector2(40, 320);
+		position = new Vector2(20, 20);
 		texture = TextureLoader.textures.get("joystick");
 	}
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(texture, position.x, Gdx.graphics.getHeight() - position.y);
+		batch.draw(texture, position.x, position.y);
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		float x = screenX;
-		float y = Gdx.graphics.getHeight() - screenY;
+		float x = (float)screenX * ((float)Game.WIDTH / Gdx.graphics.getWidth());
+		float y = (Gdx.graphics.getHeight() - screenY) * ((float)Game.HEIGHT / Gdx.graphics.getHeight());
 		
-		if (x <= 180 && x >= 20 && y <= 470 && y >= 308) {
-			float dX = x - 100;
-			float dY = y - 380;
+		if (x <= 340 && x >= 0 && y <= 340 && y >= 0) {
+			
+			float dX = x - 170;
+			float dY = y - 170;
 			dX = dX / 8;
 			dY = dY / 8;
-			//EntityManager.getPlayer().setTargetVel(dX, dY);
+			EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
-			//EntityManager.getPlayer().setUpdate(false);
+			EntityManager.getPlayer().setUpdate(false);
 		}
 		
 		return true;
@@ -43,23 +44,24 @@ public class JoyStick implements InputProcessor, Renderable{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		//EntityManager.getPlayer().setUpdate(false);
+		EntityManager.getPlayer().setUpdate(false);
 		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		float x = screenX;
-		float y = Gdx.graphics.getHeight() - screenY;
+		float x = (float)screenX * ((float)Game.WIDTH / Gdx.graphics.getWidth());
+		float y = (Gdx.graphics.getHeight() - screenY) * ((float)Game.HEIGHT / Gdx.graphics.getHeight());
 		
-		if (x <= 180 && x >= 20 && y <= 470 && y >= 308) {
-			float dX = x - 100;
-			float dY = y - 380;
+		if (x <= 340 && x >= 0 && y <= 340 && y >= 0) {
+			
+			float dX = x - 170;
+			float dY = y - 170;
 			dX = dX / 8;
 			dY = dY / 8;
-//			EntityManager.getPlayer().setTargetVel(dX, dY);
+			EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
-//			EntityManager.getPlayer().setUpdate(false);
+			EntityManager.getPlayer().setUpdate(false);
 		}
 		
 		return true;

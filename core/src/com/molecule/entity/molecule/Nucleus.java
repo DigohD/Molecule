@@ -31,7 +31,7 @@ public class Nucleus{
 		centerOffsetY = img.getHeight() / 2;
 	}
 	
-	public void draw(SpriteBatch batch){
+	public void draw(SpriteBatch batch, float targetX, float targetY){
 		x = targetX - centerOffsetX;
 		y = targetY - centerOffsetY;
 		
