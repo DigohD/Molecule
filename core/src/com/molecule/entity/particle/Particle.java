@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.molecule.Nucleus;
-import com.molecule.entity.molecule.Path;
+import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
 
@@ -20,8 +20,7 @@ public class Particle{
 
 	private Nucleus parent;
 	private Sprite img, dot;
-	
-	private LinkedList<Path> trail = new LinkedList<Path>();
+
 	private ArrayList<ParticleMod> mods = new ArrayList<ParticleMod>();
 	
 	private float sineTime, angleOffset, sineOffset, ellipseAngle;
@@ -83,21 +82,13 @@ public class Particle{
 			boostStacks--;
 		}
 			
-		if(trail.size() >= 30){
-			trail.removeFirst();
-			trail.addLast(new Path(centerX - 1, centerY - 1));
-		}else
-			trail.addLast(new Path(centerX - 1, centerY - 1));
+		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
 		
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;
 		
 		float x = centerX - drawOffsetX;
 		float y = centerY - drawOffsetY;
-		
-		for(Path p : trail){
-			p.draw(batch);
-		}
 		
 		for(ParticleMod pm : mods)
 			pm.tick(1);

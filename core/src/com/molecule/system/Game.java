@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.player.Player;
+import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
 public class Game extends ApplicationAdapter{
@@ -35,6 +36,7 @@ public class Game extends ApplicationAdapter{
 	public void create () {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		new TextureLoader();
+		new GranuleBuffer();
 		batch = new SpriteBatch();
 		img = TextureLoader.textures.get("bg");
 		eManager = new EntityManager();

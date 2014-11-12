@@ -9,10 +9,12 @@ import com.molecule.entity.Entity;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.enemy.Enemy;
+import com.molecule.entity.granule.Granule;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.particle.offensive.Projectile.Type;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.EnemyLogic;
+import com.molecule.system.util.GranuleBuffer;
 
 public class EntityManager {
 	
@@ -74,12 +76,17 @@ public class EntityManager {
 			Entity e = null;
 			if(t instanceof Entity)
 				e = (Entity) t;
-			if(!e.isLive())
+			if(!e.isLive()){
+				if(e instanceof Granule){
+					GranuleBuffer.putGranule((Granule) e);
+				}
 				removeEntity(e);
+			}
 		}
 	}
-	
+
 	public void tick(float dt){
+		
 		for(Tickable t : tToAdd)
 			tickables.add(t);
 		for(Renderable r : rToAdd)
@@ -88,6 +95,7 @@ public class EntityManager {
 		rToAdd.clear();
 		
 		removeDeadEntities();
+		
 		CollisionManager.collisionCheck(player);
 		
 		if(player.isLive())

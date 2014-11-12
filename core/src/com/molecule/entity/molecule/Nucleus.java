@@ -1,14 +1,17 @@
 package com.molecule.entity.molecule;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
+import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
 public class Nucleus{
@@ -53,6 +56,8 @@ public class Nucleus{
 		
 		rect.setX(x);
 		rect.setY(y);
+
+		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);
