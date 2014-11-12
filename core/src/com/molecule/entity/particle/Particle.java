@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.granule.Trail;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
@@ -31,9 +32,13 @@ public class Particle{
 	
 	private float centerX, centerY, drawOffsetX, drawOffsetY; 
 	
+	private Trail trail;
+	
 	public Particle(Nucleus parent){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
+		
+		trail = new Trail(this, 1, 20);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -42,6 +47,8 @@ public class Particle{
 	public Particle(Nucleus parent, float angleOffset){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
+		
+		trail = new Trail(this, 1, 20);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -52,6 +59,8 @@ public class Particle{
 	public Particle(Nucleus parent, float angleOffset, float sineOffset){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
+		
+		trail = new Trail(this, 1, 20);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -82,7 +91,10 @@ public class Particle{
 			boostStacks--;
 		}
 			
-		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
+//		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
+		
+		trail.tick(1f);
+		trail.render(batch);
 		
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;

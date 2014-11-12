@@ -24,7 +24,13 @@ public class Enemy extends DynamicEntity implements Collideable{
 		Particle p = new Particle(nucleus);
 		p.addParticleMod(new QuarkGun(p));
 		p.setTint(1f, 0.1f, 0.1f, 1f);
+		nucleus.addParticle(p);
 		
+		p = new Particle(nucleus);
+		p.setTint(1f, 0.1f, 0.1f, 1f);
+		nucleus.addParticle(p);
+		p = new Particle(nucleus);
+		p.setTint(1f, 0.1f, 0.1f, 1f);
 		nucleus.addParticle(p);
 	}
 	
