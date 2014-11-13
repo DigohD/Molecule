@@ -28,6 +28,11 @@ public class Game extends ApplicationAdapter{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	
+
+	
+	private Sprite bgS;
+	
+
 	public float scaleX, scaleY;
 	
 	@Override
@@ -45,6 +50,7 @@ public class Game extends ApplicationAdapter{
 	
 		img = TextureLoader.textures.get("bg");
 		eManager = new EntityManager();
+		bgS = new Sprite(img);
 		
 		for(int i = 0; i < 6; i++){
 			new Enemy();
@@ -82,6 +88,7 @@ public class Game extends ApplicationAdapter{
 
 	float r;
 	
+	
 	@Override
 	public void render () {
 		tick(Gdx.graphics.getDeltaTime()*10);
@@ -92,7 +99,6 @@ public class Game extends ApplicationAdapter{
 //		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
 	
 		batch.begin();
-		Sprite bgS = new Sprite(img);
 		r = r + 0.01f;
 		bgS.scale(4);
 		bgS.rotate(r);
