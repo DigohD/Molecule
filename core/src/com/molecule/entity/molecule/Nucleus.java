@@ -62,10 +62,10 @@ public class Nucleus{
 		rect.setX(x);
 		rect.setY(y);
 
-//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
 		
-		trail.tick(1f);
-		trail.render(batch);
+//		trail.tick(1f);
+//		trail.render(batch);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);

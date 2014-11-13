@@ -105,10 +105,10 @@ public class Particle{
 			boostStacks--;
 		}
 			
-//		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
+		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
 		
-		trail.tick(1f);
-		trail.render(batch);
+//		trail.tick(1f);
+//		trail.render(batch);
 		
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;
