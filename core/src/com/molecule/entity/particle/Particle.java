@@ -38,7 +38,7 @@ public class Particle{
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		trail = new Trail(this, 1, 20);
+		trail = new Trail(this, 3, 3);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -48,7 +48,7 @@ public class Particle{
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		trail = new Trail(this, 1, 20);
+		trail = new Trail(this, 3, 3);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -60,7 +60,7 @@ public class Particle{
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		trail = new Trail(this, 1, 20);
+		trail = new Trail(this, 3, 3);
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
