@@ -86,6 +86,7 @@ public class Game extends ApplicationAdapter{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
+		batch.setProjectionMatrix(cam.combined);
 		Sprite bgS = new Sprite(img);
 		r = r + 0.01f;
 		bgS.scale(4);
@@ -96,7 +97,7 @@ public class Game extends ApplicationAdapter{
 
 		cam.update();    
 		
-		batch.setProjectionMatrix(cam.combined);
+		
 
 		for(Enemy e : enemies)
 			e.draw(batch);
