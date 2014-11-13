@@ -78,6 +78,7 @@ public class Game extends ApplicationAdapter{
 	}
 
 	float r;
+	Sprite bgS = new Sprite(img);
 	
 	@Override
 	public void render () {
@@ -86,7 +87,6 @@ public class Game extends ApplicationAdapter{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		Sprite bgS = new Sprite(img);
 		r = r + 0.01f;
 		bgS.scale(4);
 		bgS.rotate(r);

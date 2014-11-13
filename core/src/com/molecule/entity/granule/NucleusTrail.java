@@ -13,19 +13,19 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
+import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.particle.Particle;
 import com.molecule.system.Game;
 import com.molecule.system.Util;
 
-public class Trail implements Tickable, Renderable{
-
-	private Particle parent;
+public class NucleusTrail implements Tickable, Renderable{
 	private int interval, timer;
+	private Nucleus parent;
 	private float baseX, baseY;
 	
 	private LinkedList<Vector2> trails = new LinkedList<Vector2>();
 	
-	public Trail(Particle parent, int interval, int length){
+	public NucleusTrail(Nucleus parent, int interval, int length){
 		this.parent = parent;
 		this.interval = interval;
 		
@@ -39,9 +39,9 @@ public class Trail implements Tickable, Renderable{
 		if(timer > interval){
 			timer = 0;
 			Vector2 v = trails.pollFirst();
-			baseX = parent.getCenter().x;
-			baseY = parent.getCenter().y;
-			v.set(parent.getCenter().x, parent.getCenter().y);
+			baseX = parent.getCenterX();
+			baseY = parent.getCenterY();
+			v.set(parent.getCenterX(), parent.getCenterY());
 			trails.addLast(v);
 		}
 	}

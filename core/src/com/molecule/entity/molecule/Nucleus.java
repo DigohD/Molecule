@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.granule.NucleusTrail;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.util.GranuleBuffer;
@@ -23,6 +24,8 @@ public class Nucleus{
 	private Color tint;
 	
 	private Rectangle rect;
+	
+	private NucleusTrail trail;
 	
 	private StatsSheet stats = new StatsSheet();
 	
@@ -42,6 +45,8 @@ public class Nucleus{
 		centerOffsetX = img.getWidth() / 2;
 		centerOffsetY = img.getHeight() / 2;
 		
+		trail = new NucleusTrail(this, 3, 10);
+		
 		rect = new Rectangle(0,0, img.getWidth(), img.getHeight());
 	}
 	
@@ -57,7 +62,10 @@ public class Nucleus{
 		rect.setX(x);
 		rect.setY(y);
 
-		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+		
+		trail.tick(1f);
+		trail.render(batch);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);
