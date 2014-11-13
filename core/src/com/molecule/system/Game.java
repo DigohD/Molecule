@@ -30,6 +30,8 @@ public class Game extends ApplicationAdapter{
 	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
+	private Sprite bgS;
+	
 	public float scaleX, scaleY;
 	
 	@Override
@@ -40,6 +42,7 @@ public class Game extends ApplicationAdapter{
 		batch = new SpriteBatch();
 		img = TextureLoader.textures.get("bg");
 		eManager = new EntityManager();
+		bgS = new Sprite(img);
 		
 		enemies.add(new Enemy());
 		enemies.add(new Enemy());
@@ -78,7 +81,7 @@ public class Game extends ApplicationAdapter{
 	}
 
 	float r;
-	Sprite bgS = new Sprite(img);
+	
 	
 	@Override
 	public void render () {

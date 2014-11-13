@@ -44,6 +44,8 @@ public class Particle{
 		
 		trail = new ParticleTrail(this, 1, 20);
 		
+		tint = new Color();
+		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
 	}
@@ -55,6 +57,8 @@ public class Particle{
 		centerV = new Vector2(0, 0);
 		
 		trail = new ParticleTrail(this, 1, 20);
+		
+		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -69,6 +73,8 @@ public class Particle{
 		centerV = new Vector2(0, 0);
 		
 		trail = new ParticleTrail(this, 1, 20);
+		
+		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
