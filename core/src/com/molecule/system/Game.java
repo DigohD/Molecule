@@ -40,9 +40,12 @@ public class Game extends ApplicationAdapter{
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		
 		ShaderProgram.pedantic = false;
-//		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert"), Gdx.files.internal("shaders/fragShader.frag"));
+		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert").readString(), Gdx.files.internal("shaders/fragShader.frag").readString());
+		if(!shader.isCompiled()){
+			 Gdx.app.log("Problem loading shader:", shader.getLog());
+		}
 		batch = new SpriteBatch();
-//		batch.setShader(shader);
+		batch.setShader(shader);
 		
 		
 		new TextureLoader();
@@ -69,6 +72,8 @@ public class Game extends ApplicationAdapter{
         cam = new OrthographicCamera(WIDTH, WIDTH * (h / w));
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
+        
+        
 	}
 	
 	Vector2 diff = new Vector2(0,0);
@@ -95,25 +100,26 @@ public class Game extends ApplicationAdapter{
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-//		shader.begin();
-//		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
+		shader.begin();
+		shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
 	
 		batch.begin();
-		r = r + 0.01f;
-		bgS.scale(4);
-		bgS.rotate(r);
-		bgS.setColor(0, 1, 1, 1);
-		bgS.draw(batch);
+	
 		
 		cam.update();    
 		
 		batch.setProjectionMatrix(cam.combined);
 
+//		r = r + 0.01f;
+//		bgS.scale(4);
+//		bgS.rotate(r);
+//		bgS.setColor(0, 1, 1, 1);
+		bgS.draw(batch);
 		joyStick.render(batch);
 		
 		eManager.render(batch);
 		batch.end();
-//		shader.end();
+		shader.end();
 	
 	}
 
