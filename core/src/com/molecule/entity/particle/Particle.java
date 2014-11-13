@@ -39,7 +39,7 @@ public class Particle{
 	public Particle(Nucleus parent){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
-		
+
 		centerV = new Vector2(0, 0);
 		
 		trail = new ParticleTrail(this, 1, 20);

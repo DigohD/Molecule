@@ -104,17 +104,18 @@ public class Game extends ApplicationAdapter{
 		shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
 	
 		batch.begin();
-	
-		
-		cam.update();    
 		
 		batch.setProjectionMatrix(cam.combined);
+		Sprite bgS = new Sprite(img);
 
-//		r = r + 0.01f;
-//		bgS.scale(4);
-//		bgS.rotate(r);
-//		bgS.setColor(0, 1, 1, 1);
+		r = r + 0.01f;
+		bgS.scale(4);
+		bgS.rotate(r);
+		bgS.setColor(0, 1, 1, 1);
 		bgS.draw(batch);
+
+		cam.update();    
+
 		joyStick.render(batch);
 		
 		eManager.render(batch);
