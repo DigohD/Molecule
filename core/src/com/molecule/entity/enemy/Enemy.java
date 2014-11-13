@@ -34,6 +34,8 @@ public class Enemy extends Entity implements Tickable, Collideable{
 		p = new Particle(nucleus);
 		p.setTint(1f, 0.1f, 0.1f, 1f);
 		nucleus.addParticle(p);
+		
+		EntityManager.addEntity(this);
 	}
 	
 	public void render(SpriteBatch batch){
@@ -53,5 +55,14 @@ public class Enemy extends Entity implements Tickable, Collideable{
 	@Override
 	public Rectangle getRect() {
 		return nucleus.getRect();
+	}
+	
+	public Nucleus getNucleus(){
+		return nucleus;
+	}
+	
+	@Override
+	public Vector2 getPosition(){
+		return nucleus.getPosition();
 	}
 }
