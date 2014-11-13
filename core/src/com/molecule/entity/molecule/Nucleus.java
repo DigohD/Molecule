@@ -137,4 +137,8 @@ public class Nucleus extends DynamicEntity{
 	public Type getOwnerType() {
 		return ownerType;
 	}
+
+	public StatsSheet getStats() {
+		return stats;
+	}
 }

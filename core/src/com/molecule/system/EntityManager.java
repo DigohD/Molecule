@@ -113,8 +113,6 @@ public class EntityManager {
 	}
 	
 	public void render(SpriteBatch batch){
-		if(player.isLive())
-			player.render(batch);
 		for(Renderable r : renderables){
 			r.render(batch);
 		}

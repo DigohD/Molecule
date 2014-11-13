@@ -18,7 +18,7 @@ public class Projectile extends DynamicEntity implements Collideable{
 	private int lifetime;
 	protected Rectangle rect;
 	
-	private float damage;
+	protected float damage;
 	private Type ownerType;
 	
 	Projectile(Vector2 pos, Vector2 v, String imgName, int lifetime, float damage, Type ownerType){
@@ -67,6 +67,10 @@ public class Projectile extends DynamicEntity implements Collideable{
 
 	public Type getType() {
 		return ownerType;
+	}
+
+	public float getDamage() {
+		return damage;
 	}
 	
 	
