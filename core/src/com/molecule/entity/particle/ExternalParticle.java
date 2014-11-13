@@ -18,48 +18,25 @@ import com.molecule.system.util.TextureLoader;
 import com.molecule.system.Util;
 
 
-public class ExternalParticle{
+public class ExternalParticle extends Particle{
 
-	private Nucleus parent;
-	private Sprite img, dot;
-
-	private Vector2 centerV;
-	
-	private ArrayList<ParticleMod> mods = new ArrayList<ParticleMod>();
-	
-	private float sineTime, angleOffset, sineOffset, ellipseAngle;
-	
-	private Color tint;
-	
-	private int boostStacks;
-	
-	private float centerX, centerY, drawOffsetX, drawOffsetY; 
-	
-	private ParticleTrail trail;
-	
 	public ExternalParticle(Nucleus parent){
-		this.parent = parent;
+		super(parent);
+		
 		img = new Sprite(TextureLoader.textures.get("particle"));
-
-		centerV = new Vector2(0, 0);
 		
 		trail = new ParticleTrail(this, 1, 20);
-		
-		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
 	}
 	
 	public ExternalParticle(Nucleus parent, float angleOffset){
-		this.parent = parent;
+		super(parent);
+		
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		centerV = new Vector2(0, 0);
-		
 		trail = new ParticleTrail(this, 1, 20);
-		
-		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -68,14 +45,11 @@ public class ExternalParticle{
 	}
 	
 	public ExternalParticle(Nucleus parent, float angleOffset, float sineOffset){
-		this.parent = parent;
+		super(parent);
+		
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		centerV = new Vector2(0, 0);
-		
 		trail = new ParticleTrail(this, 1, 20);
-		
-		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -84,6 +58,7 @@ public class ExternalParticle{
 		this.sineOffset = sineOffset;
 	}
 	
+	@Override
 	public void draw(SpriteBatch batch){
 //		sineOffsetX = (float) Math.sin(sineTime + sineOffset) * 75;
 //		sineOffsetY = (float) Math.cos(sineTime + sineOffset) * 20;
@@ -126,21 +101,4 @@ public class ExternalParticle{
 		img.setPosition(x, y);
 		img.draw(batch);
 	}
-	
-	public void addParticleMod(ParticleMod mod){
-		mods.add(mod);
-	}
-	
-	public Vector2 getCenter(){
-		return centerV;
-	}
-	
-	public void setTint(float r, float g, float b, float a) {
-		tint.set(r, g, b, a);
-	}
-	
-	public Type getOwnerType(){
-		return parent.getOwnerType();
-	}
-	
 }

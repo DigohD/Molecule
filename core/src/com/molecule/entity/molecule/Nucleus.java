@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.granule.NucleusTrail;
 import com.molecule.entity.particle.ExternalParticle;
+import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
@@ -37,7 +38,7 @@ public class Nucleus extends DynamicEntity{
 	
 	private StatsSheet stats = new StatsSheet();
 	
-	ArrayList<ExternalParticle> children = new ArrayList<ExternalParticle>();
+	ArrayList<Particle> children = new ArrayList<Particle>();
 	
 	public Nucleus(Type ownerType){
 		this("core", new Vector2(0, 0), ownerType);
@@ -78,10 +79,7 @@ public class Nucleus extends DynamicEntity{
 		
 		topLeftPos.add(velocity);
 
-		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
-		
-//		trail.tick(1f);
-//		trail.render(batch);
+//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
 		
 		rect.setX(position.x);
 		rect.setY(position.y);
@@ -93,7 +91,7 @@ public class Nucleus extends DynamicEntity{
 		img.setPosition(position.x, position.y);
 		img.draw(batch);
 	
-		for(ExternalParticle p : children)
+		for(Particle p : children)
 			p.draw(batch);
 	}
 
@@ -102,11 +100,11 @@ public class Nucleus extends DynamicEntity{
 		return position;
 	}
 	
-	public void addParticle(ExternalParticle p){
+	public void addParticle(Particle p){
 		children.add(p);
 	}
 	
-	public void removeParticle(ExternalParticle p){
+	public void removeParticle(Particle p){
 		children.remove(p);
 	}
 	

@@ -14,6 +14,7 @@ public class TextureLoader{
 		
 		textures.put("core", new Texture(Gdx.files.internal("core.png")));
 		textures.put("particle", new Texture(Gdx.files.internal("particle.png")));
+		textures.put("particleint", new Texture(Gdx.files.internal("particleint.png")));
 
 		textures.put("joystick", new Texture(Gdx.files.internal("joystick.png")));
 
