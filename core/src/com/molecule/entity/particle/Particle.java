@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.molecule.entity.granule.Trail;
+import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
@@ -22,6 +22,8 @@ public class Particle{
 	private Nucleus parent;
 	private Sprite img, dot;
 
+	private Vector2 centerV;
+	
 	private ArrayList<ParticleMod> mods = new ArrayList<ParticleMod>();
 	
 	private float sineTime, angleOffset, sineOffset, ellipseAngle;
@@ -32,13 +34,17 @@ public class Particle{
 	
 	private float centerX, centerY, drawOffsetX, drawOffsetY; 
 	
-	private Trail trail;
+	private ParticleTrail trail;
 	
 	public Particle(Nucleus parent){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
+
+		centerV = new Vector2(0, 0);
 		
-		trail = new Trail(this, 3, 3);
+		trail = new ParticleTrail(this, 1, 20);
+		
+		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -48,7 +54,11 @@ public class Particle{
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		trail = new Trail(this, 3, 3);
+		centerV = new Vector2(0, 0);
+		
+		trail = new ParticleTrail(this, 1, 20);
+		
+		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -60,7 +70,11 @@ public class Particle{
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
-		trail = new Trail(this, 3, 3);
+		centerV = new Vector2(0, 0);
+		
+		trail = new ParticleTrail(this, 1, 20);
+		
+		tint = new Color();
 		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
@@ -99,6 +113,8 @@ public class Particle{
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;
 		
+		centerV.set(centerX, centerY);
+		
 		float x = centerX - drawOffsetX;
 		float y = centerY - drawOffsetY;
 		
@@ -115,11 +131,11 @@ public class Particle{
 	}
 	
 	public Vector2 getCenter(){
-		return new Vector2(centerX, centerY);
+		return centerV;
 	}
 	
 	public void setTint(float r, float g, float b, float a) {
-		this.tint = new Color(r, g, b, a);
+		tint.set(r, g, b, a);
 	}
 	
 }

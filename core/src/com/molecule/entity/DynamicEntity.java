@@ -1,6 +1,6 @@
 package com.molecule.entity;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.system.util.PhysicsUtil;
@@ -8,7 +8,7 @@ import com.molecule.system.util.PhysicsUtil;
 public abstract class DynamicEntity extends Entity implements Tickable, Renderable{
 	
 	protected Vector2 velocity;
-	protected Texture img;
+	protected Sprite sprite;
 	
 	public DynamicEntity(Vector2 position){
 		super(position);
@@ -20,7 +20,7 @@ public abstract class DynamicEntity extends Entity implements Tickable, Renderab
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(img, position.x, position.y);
+		batch.draw(sprite, position.x, position.y);
 	}
 
 }

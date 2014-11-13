@@ -70,6 +70,7 @@ public class CollisionManager {
 						p.collisionWith(e);
 					}
 			}
+		
 		for (int i = 0; i < enemyProjectiles.size(); i++) {
 			Projectile p = enemyProjectiles.get(i);
 			if (p != null && player != null && player.isLive())

@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.enemy.Enemy;
-import com.molecule.entity.particle.Particle;
-import com.molecule.entity.player.Player;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
@@ -21,6 +20,7 @@ public class Game extends ApplicationAdapter{
 	private SpriteBatch batch;
 	private EntityManager eManager;
 	private JoyStick joyStick;
+	private ShaderProgram shader;
 	
 	private Texture img;
 	private static OrthographicCamera cam;
@@ -28,24 +28,33 @@ public class Game extends ApplicationAdapter{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
 	
+	private Sprite bgS;
+	
+
 	public float scaleX, scaleY;
 	
 	@Override
 	public void create () {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
+		
+		ShaderProgram.pedantic = false;
+//		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert"), Gdx.files.internal("shaders/fragShader.frag"));
+		batch = new SpriteBatch();
+//		batch.setShader(shader);
+		
+		
 		new TextureLoader();
 		new GranuleBuffer();
-		batch = new SpriteBatch();
+	
 		img = TextureLoader.textures.get("bg");
 		eManager = new EntityManager();
+		bgS = new Sprite(img);
 		
-		enemies.add(new Enemy());
-		enemies.add(new Enemy());
-		enemies.add(new Enemy());
-		enemies.add(new Enemy());
-		enemies.add(new Enemy());
+		for(int i = 0; i < 6; i++){
+			new Enemy();
+		}
 		
 		joyStick = new JoyStick();
 		
@@ -79,33 +88,37 @@ public class Game extends ApplicationAdapter{
 
 	float r;
 	
+	
 	@Override
 	public void render () {
 		tick(Gdx.graphics.getDeltaTime()*10);
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+//		shader.begin();
+//		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
+	
 		batch.begin();
+
 		batch.setProjectionMatrix(cam.combined);
 		Sprite bgS = new Sprite(img);
+
 		r = r + 0.01f;
 		bgS.scale(4);
 		bgS.rotate(r);
 		bgS.setColor(0, 1, 1, 1);
-		
 		bgS.draw(batch);
-
+		
 		cam.update();    
 		
 		
-
-		for(Enemy e : enemies)
-			e.draw(batch);
 
 		joyStick.render(batch);
 		
 		eManager.render(batch);
 		batch.end();
+//		shader.end();
+	
 	}
 
 	@Override
@@ -117,6 +130,7 @@ public class Game extends ApplicationAdapter{
 	 
 	@Override
 	public void dispose(){
+		batch.dispose();
 		EntityManager.clear();
 	}
 
