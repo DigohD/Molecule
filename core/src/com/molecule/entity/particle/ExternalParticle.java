@@ -18,7 +18,7 @@ import com.molecule.system.util.TextureLoader;
 import com.molecule.system.Util;
 
 
-public class Particle{
+public class ExternalParticle{
 
 	private Nucleus parent;
 	private Sprite img, dot;
@@ -37,7 +37,7 @@ public class Particle{
 	
 	private ParticleTrail trail;
 	
-	public Particle(Nucleus parent){
+	public ExternalParticle(Nucleus parent){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 
@@ -51,7 +51,7 @@ public class Particle{
 		drawOffsetY = img.getHeight() / 2;
 	}
 	
-	public Particle(Nucleus parent, float angleOffset){
+	public ExternalParticle(Nucleus parent, float angleOffset){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		
@@ -67,7 +67,7 @@ public class Particle{
 		this.angleOffset = angleOffset;
 	}
 	
-	public Particle(Nucleus parent, float angleOffset, float sineOffset){
+	public ExternalParticle(Nucleus parent, float angleOffset, float sineOffset){
 		this.parent = parent;
 		img = new Sprite(TextureLoader.textures.get("particle"));
 		

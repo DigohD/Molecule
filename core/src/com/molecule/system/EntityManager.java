@@ -11,7 +11,7 @@ import com.molecule.entity.Tickable;
 import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.granule.Granule;
 import com.molecule.entity.molecule.Nucleus.Type;
-import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.particle.offensive.QuarkGun;
 import com.molecule.entity.player.Player;
@@ -30,7 +30,7 @@ public class EntityManager {
 	public EntityManager(){
 		player = new Player(new Vector2(100, 100));
 		
-		Particle p = new Particle(player.getNucleus());
+		ExternalParticle p = new ExternalParticle(player.getNucleus());
 		p.addParticleMod(new QuarkGun(p));
 		player.getNucleus().addParticle(p);
 		

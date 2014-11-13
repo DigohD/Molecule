@@ -13,18 +13,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
-import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.system.Game;
 import com.molecule.system.Util;
 
 public class ParticleTrail implements Tickable, Renderable{
 	private int interval, timer;
-	private Particle parent;
+	private ExternalParticle parent;
 	private float baseX, baseY;
 	
 	private LinkedList<Vector2> trails = new LinkedList<Vector2>();
 	
-	public ParticleTrail(Particle parent, int interval, int length){
+	public ParticleTrail(ExternalParticle parent, int interval, int length){
 		this.parent = parent;
 		this.interval = interval;
 		

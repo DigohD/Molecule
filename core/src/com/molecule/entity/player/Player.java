@@ -5,12 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Collideable;
 import com.molecule.entity.Entity;
 import com.molecule.entity.Tickable;
+import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.EntityManager;
 import com.molecule.system.util.PhysicsUtil;
+import com.molecule.system.util.SoundLoader;
 
 public class Player extends Entity implements Tickable, Collideable{
 
@@ -49,6 +51,12 @@ public class Player extends Entity implements Tickable, Collideable{
 			if(newHP <= 0){
 				nucleus.setLive(false);
 				live = false;
+				SoundLoader.sounds.get("death").play();
+				
+				Emitter emitter = new Emitter(nucleus.getPosition(), 25, 2, 5, "gas");
+				emitter.setSpreadRadial(new Vector2(1, 0));
+				emitter.setRandomness(20f);
+				
 				return;
 			}else
 				nucleus.getStats().getStat(StatID.HP_NOW).setNewBase(newHP);

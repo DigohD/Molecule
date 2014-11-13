@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.granule.NucleusTrail;
-import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
@@ -37,7 +37,7 @@ public class Nucleus extends DynamicEntity{
 	
 	private StatsSheet stats = new StatsSheet();
 	
-	ArrayList<Particle> children = new ArrayList<Particle>();
+	ArrayList<ExternalParticle> children = new ArrayList<ExternalParticle>();
 	
 	public Nucleus(Type ownerType){
 		this("core", new Vector2(0, 0), ownerType);
@@ -93,7 +93,7 @@ public class Nucleus extends DynamicEntity{
 		img.setPosition(position.x, position.y);
 		img.draw(batch);
 	
-		for(Particle p : children)
+		for(ExternalParticle p : children)
 			p.draw(batch);
 	}
 
@@ -102,11 +102,11 @@ public class Nucleus extends DynamicEntity{
 		return position;
 	}
 	
-	public void addParticle(Particle p){
+	public void addParticle(ExternalParticle p){
 		children.add(p);
 	}
 	
-	public void removeParticle(Particle p){
+	public void removeParticle(ExternalParticle p){
 		children.remove(p);
 	}
 	
@@ -141,4 +141,6 @@ public class Nucleus extends DynamicEntity{
 	public StatsSheet getStats() {
 		return stats;
 	}
+	
+	
 }

@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.molecule.Nucleus;
-import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.system.Game;
 import com.molecule.system.Util;
 

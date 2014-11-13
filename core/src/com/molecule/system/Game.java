@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.enemy.Enemy;
 import com.molecule.system.util.GranuleBuffer;
+import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
 public class Game extends ApplicationAdapter{
@@ -54,6 +55,7 @@ public class Game extends ApplicationAdapter{
 		
 		
 		new TextureLoader();
+		new SoundLoader();
 		new GranuleBuffer();
 	
 		img = TextureLoader.textures.get("bg");
