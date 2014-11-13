@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Collideable;
 import com.molecule.entity.DynamicEntity;
+import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.TextureLoader;
@@ -52,6 +53,9 @@ public class Projectile extends DynamicEntity implements Collideable{
 	@Override
 	public void collisionWith(Collideable obj) {
 		if(obj instanceof Player){
+			live = false;
+		}
+		if(obj instanceof Enemy){
 			live = false;
 		}
 	}
