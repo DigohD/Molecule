@@ -14,6 +14,7 @@ import com.molecule.entity.granule.NucleusTrail;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.system.EntityManager;
+import com.molecule.system.Game;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
@@ -77,7 +78,7 @@ public class Nucleus extends DynamicEntity{
 		
 		topLeftPos.add(velocity);
 
-//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
 		
 //		trail.tick(1f);
 //		trail.render(batch);
@@ -91,7 +92,7 @@ public class Nucleus extends DynamicEntity{
 		img.setColor(tint);
 		img.setPosition(position.x, position.y);
 		img.draw(batch);
-
+	
 		for(Particle p : children)
 			p.draw(batch);
 	}

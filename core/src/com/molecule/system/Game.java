@@ -20,7 +20,7 @@ public class Game extends ApplicationAdapter{
 	private SpriteBatch batch;
 	private EntityManager eManager;
 	private JoyStick joyStick;
-	private ShaderProgram shader;
+	private static ShaderProgram shader;
 	
 	private Texture img;
 	private static OrthographicCamera cam;
@@ -108,9 +108,6 @@ public class Game extends ApplicationAdapter{
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-//		shader.begin();
-//		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
-	
 		bgS.setScale(10);
 
 		shader.begin();
@@ -127,12 +124,27 @@ public class Game extends ApplicationAdapter{
 		bgS.draw(batch);
 
 		cam.update();    
-
 		eManager.render(batch);
 		joyStick.render(batch);
 		
 		batch.end();
 		shader.end();
+	}
+	
+	public static void enableWaveEffect(){
+		shader.end();
+		shader.begin();
+		shader.setUniformf("waveEffect", 1.0f);
+		shader.end();
+		shader.begin();
+	}
+	
+	public static void disableWaveEffect(){
+		shader.end();
+		shader.begin();
+		shader.setUniformf("waveEffect", 0.0f);
+		shader.end();
+		shader.begin();
 	}
 
 	@Override
