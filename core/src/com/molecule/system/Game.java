@@ -28,6 +28,11 @@ public class Game extends ApplicationAdapter{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	
+	private float amplitudeWave = 8f;
+	private float angleWave = 2.86f;
+	private float angleWaveSpeed = 0.2f;
+	private static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
+	
 	private Sprite bgS;
 	
 
@@ -38,9 +43,14 @@ public class Game extends ApplicationAdapter{
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		
 		ShaderProgram.pedantic = false;
-//		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert"), Gdx.files.internal("shaders/fragShader.frag"));
+		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert").readString(), 
+				Gdx.files.internal("shaders/fragShader.frag").readString());
+		
+		if(!shader.isCompiled())
+			 Gdx.app.log("Problem loading shader:", shader.getLog());
+		
 		batch = new SpriteBatch();
-//		batch.setShader(shader);
+		batch.setShader(shader);
 		
 		
 		new TextureLoader();
@@ -84,6 +94,10 @@ public class Game extends ApplicationAdapter{
 		pos.y = cam.position.y + (diff.y / 15.0f); 
 	
 		cam.position.set(pos.x, pos.y, 0);
+		
+		angleWave += dt * angleWaveSpeed;
+		while(angleWave > PI2)
+			angleWave -= PI2;
 	}
 
 	float r;
@@ -98,25 +112,27 @@ public class Game extends ApplicationAdapter{
 //		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
 	
 		bgS.setScale(10);
+
+		shader.begin();
+		shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
+		shader.setUniformf("waveDataX", angleWave);
+		shader.setUniformf("waveDataY", amplitudeWave);
 		
 		batch.begin();
-
+		
 		batch.setProjectionMatrix(cam.combined);
 		
 		bgS.rotate(0.01f);
 		bgS.setColor(0, 1, 1, 1);
 		bgS.draw(batch);
-		
-		cam.update();    
-		
-		
 
+		cam.update();    
+
+		eManager.render(batch);
 		joyStick.render(batch);
 		
-		eManager.render(batch);
 		batch.end();
-//		shader.end();
-	
+		shader.end();
 	}
 
 	@Override

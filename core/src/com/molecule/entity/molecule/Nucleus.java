@@ -76,6 +76,11 @@ public class Nucleus extends DynamicEntity{
 		position.y = topLeftPos.y - centerOffsetY + sineY;
 		
 		topLeftPos.add(velocity);
+
+//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+		
+//		trail.tick(1f);
+//		trail.render(batch);
 		
 		rect.setX(position.x);
 		rect.setY(position.y);
