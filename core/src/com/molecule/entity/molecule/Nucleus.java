@@ -9,33 +9,45 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.granule.NucleusTrail;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
+import com.molecule.system.EntityManager;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
-public class Nucleus{
+public class Nucleus extends DynamicEntity{
 
+	public enum Type {
+		PLAYER, ENEMY;
+	}
+	
 	private Sprite img;
-	private float targetX, targetY, x, y;
 	private float centerOffsetX, centerOffsetY;
 	private float sineX, sineY, sineTime;
 	private Color tint;
+	private Vector2 velocity, topLeftPos;
 	
 	private Rectangle rect;
+	private Type ownerType;
 	
-	private NucleusTrail trail;
+//	private NucleusTrail trail;
 	
 	private StatsSheet stats = new StatsSheet();
 	
 	ArrayList<Particle> children = new ArrayList<Particle>();
 	
-	public Nucleus(){
-		this("core");
+	public Nucleus(Type ownerType){
+		this("core", new Vector2(0, 0), ownerType);
+		this.ownerType = ownerType;
 	}
 	
-	public Nucleus(String image){
+	public Nucleus(String image, Vector2 position, Type ownerType){
+		super(position);
+		this.ownerType = ownerType;
+		
+		topLeftPos = position.cpy();
 		img = new Sprite(TextureLoader.textures.get(image));
 		
 		tint = new Color(1f, 1f, 1f, 1f);
@@ -45,36 +57,45 @@ public class Nucleus{
 		centerOffsetX = img.getWidth() / 2;
 		centerOffsetY = img.getHeight() / 2;
 		
-		trail = new NucleusTrail(this, 3, 10);
+//		trail = new NucleusTrail(this, 3, 10);
 		
-		rect = new Rectangle(0,0, img.getWidth(), img.getHeight());
+		rect = new Rectangle(position.x, position.y, img.getWidth(), img.getHeight());
+		velocity = new Vector2(0, 0);
+		
+		EntityManager.addEntity(this);
 	}
 	
-	public void draw(SpriteBatch batch, float targetX, float targetY){
+	@Override
+	public void tick(float dt) {
 		sineX = (float) (Math.sin(sineTime) * 10);
 		sineY = (float) (Math.sin(sineTime / 3) * 10);
 		
 		sineTime = sineTime + 0.1f;
 		
-		x = targetX - centerOffsetX + sineX;
-		y = targetY - centerOffsetY + sineY;
+		position.x = topLeftPos.x - centerOffsetX + sineX;
+		position.y = topLeftPos.y - centerOffsetY + sineY;
 		
-		rect.setX(x);
-		rect.setY(y);
-
-//		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
+		topLeftPos.add(velocity);
 		
-		trail.tick(1f);
-		trail.render(batch);
-		
+		rect.setX(position.x);
+		rect.setY(position.y);
+	}
+	
+	@Override
+	public void render(SpriteBatch batch){
 		img.setColor(tint);
-		img.setPosition(x, y);
+		img.setPosition(position.x, position.y);
 		img.draw(batch);
 
 		for(Particle p : children)
 			p.draw(batch);
 	}
 
+	@Override
+	public Vector2 getPosition(){
+		return position;
+	}
+	
 	public void addParticle(Particle p){
 		children.add(p);
 	}
@@ -83,28 +104,12 @@ public class Nucleus{
 		children.remove(p);
 	}
 	
-	public float getTargetX() {
-		return targetX;
-	}
-
-	public void setTargetX(float targetX) {
-		this.targetX = targetX;
-	}
-
-	public float getTargetY() {
-		return targetY;
-	}
-
-	public void setTargetY(float targetY) {
-		this.targetY = targetY;
-	}
-	
 	public float getCenterX(){
-		return x + centerOffsetX + sineX;
+		return position.x + centerOffsetX + sineX;
 	}
 	
 	public float getCenterY(){
-		return y + centerOffsetX + sineY;
+		return position.y + centerOffsetY + sineY;
 	}
 
 	public void setTint(float r, float g, float b, float a) {
@@ -118,7 +123,12 @@ public class Nucleus{
 	public Rectangle getRect() {
 		return rect;
 	}
-	
-	
-	
+
+	public void setVelocity(Vector2 velocity) {
+		this.velocity = velocity;
+	}
+
+	public Type getOwnerType() {
+		return ownerType;
+	}
 }

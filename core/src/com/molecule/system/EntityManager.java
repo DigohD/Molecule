@@ -10,8 +10,8 @@ import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.granule.Granule;
+import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.offensive.Projectile;
-import com.molecule.entity.particle.offensive.Projectile.Type;
 import com.molecule.entity.player.Player;
 import com.molecule.system.util.EnemyLogic;
 import com.molecule.system.util.GranuleBuffer;
@@ -108,8 +108,9 @@ public class EntityManager {
 	public void render(SpriteBatch batch){
 		if(player.isLive())
 			player.render(batch);
-		for(Renderable r : renderables)
+		for(Renderable r : renderables){
 			r.render(batch);
+		}
 	}
 
 	public static Player getPlayer() {

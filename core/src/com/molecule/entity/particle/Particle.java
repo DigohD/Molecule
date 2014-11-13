@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
+import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
@@ -136,6 +137,10 @@ public class Particle{
 	
 	public void setTint(float r, float g, float b, float a) {
 		tint.set(r, g, b, a);
+	}
+	
+	public Type getOwnerType(){
+		return parent.getOwnerType();
 	}
 	
 }

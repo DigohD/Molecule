@@ -23,6 +23,11 @@ public abstract class Entity {
 	public void setPosition(Vector2 position) {
 		this.position = position;
 	}
+	
+	public void setPosition(float x, float y){
+		position.x = x;
+		position.y = y;
+	}
 
 	public boolean isLive() {
 		return live;

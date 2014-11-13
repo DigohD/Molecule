@@ -28,8 +28,6 @@ public class Game extends ApplicationAdapter{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	
-
-	
 	private Sprite bgS;
 	
 
@@ -49,6 +47,8 @@ public class Game extends ApplicationAdapter{
 		new GranuleBuffer();
 	
 		img = TextureLoader.textures.get("bg");
+		bgS = new Sprite(img);
+		bgS.scale(4);
 		eManager = new EntityManager();
 		bgS = new Sprite(img);
 		
@@ -88,7 +88,6 @@ public class Game extends ApplicationAdapter{
 
 	float r;
 	
-	
 	@Override
 	public void render () {
 		tick(Gdx.graphics.getDeltaTime()*10);
@@ -98,14 +97,13 @@ public class Game extends ApplicationAdapter{
 //		shader.begin();
 //		shader.setUniformMatrix("transform", batch.getProjectionMatrix());
 	
+		bgS.setScale(10);
+		
 		batch.begin();
 
 		batch.setProjectionMatrix(cam.combined);
-		Sprite bgS = new Sprite(img);
-
-		r = r + 0.01f;
-		bgS.scale(4);
-		bgS.rotate(r);
+		
+		bgS.rotate(0.01f);
 		bgS.setColor(0, 1, 1, 1);
 		bgS.draw(batch);
 		
