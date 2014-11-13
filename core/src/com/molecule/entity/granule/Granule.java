@@ -41,6 +41,8 @@ public class Granule extends DynamicEntity{
 		sprite.setTexture(TextureLoader.textures.get(imageName));
 		this.lifetime = lifetime;
 		live = true;
+		vX = 0;
+		vY = 0;
 	}
 	
 	public void spawn(int lifetime, String imageName, float posX, float posY){
@@ -51,6 +53,9 @@ public class Granule extends DynamicEntity{
 		
 		this.posX = posX;
 		this.posY = posY;
+		
+		vX = 0;
+		vY = 0;
 		
 		EntityManager.addEntity(this);
 	}

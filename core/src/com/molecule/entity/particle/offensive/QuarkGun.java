@@ -1,6 +1,7 @@
 package com.molecule.entity.particle.offensive;
 
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.ParticleMod;
@@ -34,6 +35,9 @@ public class QuarkGun extends ParticleMod{
 				new Quark(parent.getCenter(), PlayerLogic.getEnemyDir(parent.getCenter(), PlayerLogic.findNearestEnemy(parent.getCenter())).nor().scl(12));
 				System.out.println(parent.getCenter().toString());
 			}
+			Emitter emitter = new Emitter(parent.getCenter(), 10, 3, 15, "quark");
+			emitter.setSpreadRadial(new Vector2(1, 0));
+			emitter.setRandomness(4f);
 			CDTimer = -1;
 		}
 		CDTimer++;
