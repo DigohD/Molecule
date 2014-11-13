@@ -8,11 +8,13 @@ import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.offensive.QuarkGun;
+import com.molecule.system.EntityManager;
 import com.molecule.system.Util;
 
 public class Enemy extends DynamicEntity implements Collideable{
 
 	private Nucleus nucleus;
+	
 	
 	public Enemy(){
 		super(new Vector2(Util.rnd.nextInt(1800), Util.rnd.nextInt(900)));
@@ -26,9 +28,10 @@ public class Enemy extends DynamicEntity implements Collideable{
 		p.setTint(1f, 0.1f, 0.1f, 1f);
 		
 		nucleus.addParticle(p);
+		EntityManager.addEntity(this);
 	}
 	
-	public void draw(SpriteBatch batch){
+	public void render(SpriteBatch batch){
 		nucleus.draw(batch, nucleus.getTargetX(), nucleus.getTargetY());
 	}
 
@@ -39,13 +42,12 @@ public class Enemy extends DynamicEntity implements Collideable{
 
 	@Override
 	public void collisionWith(Collideable obj) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public Rectangle getRect() {
-		// TODO Auto-generated method stub
-		return null;
+		return nucleus.getRect();
 	}
 }
