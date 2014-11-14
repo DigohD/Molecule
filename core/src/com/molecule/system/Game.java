@@ -28,16 +28,16 @@ public class Game extends ApplicationAdapter{
 	}
 	
 	@Override
-	public void render () {
+	public void render(){
 		tick(Gdx.graphics.getDeltaTime()*10);
 		renderer.render();
 		gsm.render(renderer);
 	}
 	
 	@Override
-	public void resize(int width, int height) {
-	    Camera.getCam().viewportWidth = WIDTH;                 // Viewport of 30 units!
-	    Camera.getCam().viewportHeight = WIDTH * height/width; // Lets keep things in proportion.
+	public void resize(int width, int height){
+	    Camera.getCam().viewportWidth = WIDTH;                
+	    Camera.getCam().viewportHeight = WIDTH * height/width;
 	    Camera.getCam().update();
 	}
 	 
