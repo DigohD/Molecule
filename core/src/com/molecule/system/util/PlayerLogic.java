@@ -30,8 +30,14 @@ public class PlayerLogic {
 	}
 	
 	public static Vector2 getEnemyDir(Vector2 pos, Enemy enemy){
-		float enemyX = enemy.getNucleus().getCenterX();
-		float enemyY = enemy.getNucleus().getCenterY();
+		float enemyX = 0;
+		float enemyY = 0;
+		
+		if(enemy != null){
+			enemyX = enemy.getNucleus().getCenterX();
+			enemyY = enemy.getNucleus().getCenterY();
+		}
+		
 		
 		float dirX = enemyX - pos.x;
 		float dirY = enemyY - pos.y;
