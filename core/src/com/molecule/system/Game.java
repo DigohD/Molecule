@@ -43,12 +43,12 @@ public class Game extends ApplicationAdapter{
 	public void create () {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		
-//		ShaderProgram.pedantic = false;
-//		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert").readString(), 
-//				Gdx.files.internal("shaders/fragShader.frag").readString());
-//		
-//		if(!shader.isCompiled())
-//			 Gdx.app.log("Problem loading shader:", shader.getLog());
+		ShaderProgram.pedantic = false;
+		shader = new ShaderProgram(Gdx.files.internal("shaders/vertShader.vert").readString(), 
+				Gdx.files.internal("shaders/fragShader.frag").readString());
+		
+		if(!shader.isCompiled())
+			 Gdx.app.log("Problem loading shader:", shader.getLog());
 		
 		batch = new SpriteBatch();
 		batch.setShader(shader);
@@ -112,10 +112,10 @@ public class Game extends ApplicationAdapter{
 		
 		bgS.setScale(10);
 
-//		shader.begin();
-//		shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
-//		shader.setUniformf("waveDataX", angleWave);
-//		shader.setUniformf("waveDataY", amplitudeWave);
+		shader.begin();
+		shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
+		shader.setUniformf("waveDataX", angleWave);
+		shader.setUniformf("waveDataY", amplitudeWave);
 		
 		batch.begin();
 		
@@ -130,7 +130,7 @@ public class Game extends ApplicationAdapter{
 		joyStick.render(batch);
 		
 		batch.end();
-//		shader.end();
+		shader.end();
 	}
 	
 	public static void enableWaveEffect(){
