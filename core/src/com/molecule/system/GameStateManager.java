@@ -50,14 +50,14 @@ private LinkedStack<GameState> states;
 			tick(state.next, dt);
 	}
 	
-	public void render(Screen screen){
-		render(states.top, screen);
+	public void render(Renderer renderer){
+		render(states.top, renderer);
 	}
 	
-	private void render(Node<GameState> state, Screen screen){
+	private void render(Node<GameState> state, Renderer renderer){
 		if(!state.data.isRenderingBlocked())
-			render(state.next, screen);
-		state.data.render(screen);
+			render(state.next, renderer);
+		state.data.render(renderer);
 	}
 
 }

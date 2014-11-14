@@ -1,7 +1,7 @@
 package com.molecule.system.states;
 
-import com.badlogic.gdx.Screen;
 import com.molecule.system.GameStateManager;
+import com.molecule.system.Renderer;
 
 public abstract class GameState {
 	
@@ -15,7 +15,7 @@ public abstract class GameState {
 	
 	public abstract void init();
 	public abstract void tick(float dt);
-	public abstract void render(Screen screen);
+	public abstract void render(Renderer renderer);
 	
 	public boolean isTickingBlocked() {
 		return blockTicking;
