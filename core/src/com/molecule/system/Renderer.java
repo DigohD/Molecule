@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public class Renderer {
 	
-	private SpriteBatch batch;
+	private static SpriteBatch batch;
 	private static ShaderProgram shader;
 	
 	public Renderer(int width, int height){
@@ -22,6 +22,10 @@ public class Renderer {
 		if(!shader.isCompiled())
 			 Gdx.app.log("Problem loading shader:", shader.getLog());
 		
+		
+	}
+	
+	public static void enableCustomShader(){
 		batch.setShader(shader);
 	}
 	

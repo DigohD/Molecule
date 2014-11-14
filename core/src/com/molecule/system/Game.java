@@ -2,7 +2,7 @@ package com.molecule.system;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.molecule.system.states.PlayState;
+import com.molecule.system.states.MenuState;
 import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
@@ -20,7 +20,7 @@ public class Game extends ApplicationAdapter{
 		new TextureLoader();
 		new SoundLoader();
 		gsm = new GameStateManager();
-		gsm.push(new PlayState(gsm));
+		gsm.push(new MenuState(gsm));
 	}
 	
 	public void tick(float dt){

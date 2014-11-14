@@ -1,4 +1,4 @@
-package com.molecule.system;
+package com.molecule.system.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.Renderable;
+import com.molecule.system.Camera;
+import com.molecule.system.EntityManager;
+import com.molecule.system.Game;
 import com.molecule.system.util.TextureLoader;
 
 public class JoyStick implements InputProcessor, Renderable{

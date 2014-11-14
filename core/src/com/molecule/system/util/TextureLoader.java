@@ -10,22 +10,28 @@ public class TextureLoader{
 	public static HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	
 	public TextureLoader(){
-		textures.put("bg", new Texture(Gdx.files.internal("bg.png")));
+		//gui
+		textures.put("playbutton", new Texture(Gdx.files.internal("textures/gui/playbutton.png")));
+		textures.put("exitbutton", new Texture(Gdx.files.internal("textures/gui/exitbutton.png")));
+		textures.put("buttonClicked", new Texture(Gdx.files.internal("textures/gui/buttonClicked.png")));
+		textures.put("joystick", new Texture(Gdx.files.internal("textures/gui/joystick.png")));
 		
-		textures.put("core", new Texture(Gdx.files.internal("core.png")));
-		textures.put("particle", new Texture(Gdx.files.internal("particle.png")));
-		textures.put("particleint", new Texture(Gdx.files.internal("particleint.png")));
+		textures.put("bg", new Texture(Gdx.files.internal("textures/bg.png")));
+		
+		textures.put("core", new Texture(Gdx.files.internal("textures/core.png")));
+		textures.put("particle", new Texture(Gdx.files.internal("textures/particle.png")));
+		textures.put("particleint", new Texture(Gdx.files.internal("textures/particleint.png")));
 
-		textures.put("joystick", new Texture(Gdx.files.internal("joystick.png")));
+	
 
-		textures.put("path", new Texture(Gdx.files.internal("path.png")));
+		textures.put("path", new Texture(Gdx.files.internal("textures/path.png")));
 		
-		textures.put("quark", new Texture(Gdx.files.internal("quark.png")));
+		textures.put("quark", new Texture(Gdx.files.internal("textures/quark.png")));
 		
-		textures.put("gas", new Texture(Gdx.files.internal("gas.png")));
+		textures.put("gas", new Texture(Gdx.files.internal("textures/gas.png")));
 		
-		textures.put("dot", new Texture(Gdx.files.internal("dot.png")));
-		textures.put("dot2", new Texture(Gdx.files.internal("dot2.png")));
+		textures.put("dot", new Texture(Gdx.files.internal("textures/dot.png")));
+		textures.put("dot2", new Texture(Gdx.files.internal("textures/dot2.png")));
 
 	}
 	

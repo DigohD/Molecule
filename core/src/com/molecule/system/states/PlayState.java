@@ -6,8 +6,8 @@ import com.molecule.entity.enemy.Enemy;
 import com.molecule.system.Camera;
 import com.molecule.system.EntityManager;
 import com.molecule.system.GameStateManager;
-import com.molecule.system.JoyStick;
 import com.molecule.system.Renderer;
+import com.molecule.system.gui.JoyStick;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
@@ -35,13 +35,15 @@ public class PlayState extends GameState{
 		eManager = new EntityManager();
 		bgS = new Sprite(TextureLoader.textures.get("bg"));
 		bgS.scale(4);
-		camera = new Camera();
+		camera = new Camera(true);
 		joyStick = new JoyStick();
 		Gdx.input.setInputProcessor(joyStick);
 		
 		for(int i = 0; i < 6; i++){
 			new Enemy();
 		}
+		
+		Renderer.enableCustomShader();
 	}
 
 	@Override
