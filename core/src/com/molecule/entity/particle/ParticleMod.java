@@ -4,9 +4,9 @@ import com.molecule.entity.Tickable;
 
 public abstract class ParticleMod  implements Tickable{
 
-	protected ExternalParticle parent;
+	protected Particle parent;
 	
-	public ParticleMod(ExternalParticle parent){
+	public ParticleMod(Particle parent){
 		this.parent = parent;
 	}
 	

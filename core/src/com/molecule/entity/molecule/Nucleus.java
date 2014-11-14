@@ -14,6 +14,7 @@ import com.molecule.entity.granule.NucleusTrail;
 import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
+import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
 import com.molecule.system.util.GranuleBuffer;
@@ -79,6 +80,9 @@ public class Nucleus extends DynamicEntity{
 		
 		topLeftPos.add(velocity);
 
+//		if(ownerType == Type.PLAYER)
+//			System.out.println(stats.getStat(StatID.HP_NOW).getTotal());
+		
 //		GranuleBuffer.getGranule().spawn(10, "quark", getCenterX(), getCenterY(), 0, 0);
 		
 		rect.setX(position.x);
@@ -102,10 +106,13 @@ public class Nucleus extends DynamicEntity{
 	
 	public void addParticle(Particle p){
 		children.add(p);
+		p.setParent(this);
+		p.applyStatsChanges();
 	}
 	
 	public void removeParticle(Particle p){
 		children.remove(p);
+		p.removeStatsChanges();
 	}
 	
 	public float getCenterX(){

@@ -13,9 +13,11 @@ import com.molecule.entity.granule.Granule;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.InternalParticle;
+import com.molecule.entity.particle.defensive.Plasmatron;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.particle.offensive.QuarkGun;
 import com.molecule.entity.player.Player;
+import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.util.EnemyLogic;
 import com.molecule.system.util.GranuleBuffer;
 
@@ -32,21 +34,27 @@ public class EntityManager {
 		player = new Player(new Vector2(100, 100));
 		
 		ExternalParticle p = new ExternalParticle(player.getNucleus());
-//		p.addParticleMod(new QuarkGun(p));
+		p.addParticleMod(new QuarkGun(p));
 		player.getNucleus().addParticle(p);
 		p = new ExternalParticle(player.getNucleus());
-//		p.addParticleMod(new QuarkGun(p));
+		p.addParticleMod(new QuarkGun(p));
 		player.getNucleus().addParticle(p);
 		p = new ExternalParticle(player.getNucleus());
-//		p.addParticleMod(new QuarkGun(p));
+		p.addParticleMod(new QuarkGun(p));
 		player.getNucleus().addParticle(p);
 		
 		InternalParticle ip = new InternalParticle(player.getNucleus());
+		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
 		player.getNucleus().addParticle(ip);
 		ip = new InternalParticle(player.getNucleus());
+		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
 		player.getNucleus().addParticle(ip);
 		ip = new InternalParticle(player.getNucleus());
+		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
 		player.getNucleus().addParticle(ip);
+		
+		player.getNucleus().getStats().getStat(StatID.HP_NOW).setNewBase(
+				player.getNucleus().getStats().getStat(StatID.HP_MAX).getTotal());
 		
 		new EnemyLogic(player.getNucleus());
 	}

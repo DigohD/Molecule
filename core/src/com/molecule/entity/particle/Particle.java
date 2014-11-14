@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
+import com.molecule.entity.particle.defensive.Plasmatron;
 
 public abstract class Particle {
 
@@ -40,6 +41,22 @@ public abstract class Particle {
 		mods.add(mod);
 	}
 	
+	public void applyStatsChanges(){
+		for(ParticleMod x : mods){
+			if(x instanceof Plasmatron){
+				((Plasmatron) x).applyStatChanges();
+			}
+		}
+	}
+	
+	public void removeStatsChanges(){
+		for(ParticleMod x : mods){
+			if(x instanceof Plasmatron){
+				((Plasmatron) x).removeStatChanges();
+			}
+		}
+	}
+	
 	public Vector2 getCenter(){
 		return centerV;
 	}
@@ -52,5 +69,15 @@ public abstract class Particle {
 		return parent.getOwnerType();
 	}
 	
+	public Nucleus getParent(){
+		return parent;
+	}
+	
+	public void setParent(Nucleus parent) {
+		this.parent = parent;
+	}
+
 	public abstract void draw(SpriteBatch batch);
+	
+	
 }

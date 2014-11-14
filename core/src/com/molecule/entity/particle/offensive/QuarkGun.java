@@ -24,7 +24,7 @@ public class QuarkGun extends ParticleMod{
 	
 	public QuarkGun(ExternalParticle parent){
 		super(parent);
-		CD = 10;
+		CD = 60;
 		CDTimer = 0;
 	}
 
@@ -33,11 +33,10 @@ public class QuarkGun extends ParticleMod{
 		if(Util.rnd.nextInt(10) == 0)
 			return;
 		if(CDTimer >= CD){
-//			if(parent.getOwnerType() == Type.ENEMY)
-//				new Quark(parent.getCenter(), EnemyLogic.getPlayerDir(parent.getCenter()).nor().scl(12));
+			if(parent.getOwnerType() == Type.ENEMY)
+				new Quark(parent.getCenter(), EnemyLogic.getPlayerDir(parent.getCenter()).nor().scl(12));
 			if(parent.getOwnerType() == Type.PLAYER){
 				new Quark(parent.getCenter(), PlayerLogic.getEnemyDir(parent.getCenter(), PlayerLogic.findNearestEnemy(parent.getCenter())).nor().scl(12));
-				System.out.println(parent.getCenter().toString());
 			}
 			Emitter emitter = new Emitter(parent.getCenter(), 10, 3, 15, "quark");
 			emitter.setSpreadRadial(new Vector2(1, 0));
