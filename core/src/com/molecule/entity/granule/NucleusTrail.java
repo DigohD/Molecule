@@ -15,6 +15,7 @@ import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.particle.ExternalParticle;
+import com.molecule.system.Camera;
 import com.molecule.system.Game;
 import com.molecule.system.Util;
 
@@ -53,7 +54,7 @@ public class NucleusTrail implements Tickable, Renderable{
 		
 		alpha = 0.0f;
 		
-		Util.shapeRenderer.setProjectionMatrix(Game.getCam().combined);
+		Util.shapeRenderer.setProjectionMatrix(Camera.getCam().combined);
 		Gdx.gl.glEnable(Gdx.graphics.getGL20().GL_BLEND);
 		Gdx.gl.glBlendFunc(Gdx.graphics.getGL20().GL_SRC_ALPHA, Gdx.graphics.getGL20().GL_ONE_MINUS_SRC_ALPHA);
 		for(int i = 0; i < trails.size(); i++){

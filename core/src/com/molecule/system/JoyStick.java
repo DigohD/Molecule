@@ -20,7 +20,7 @@ public class JoyStick implements InputProcessor, Renderable{
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(texture, position.x + (Game.getCam().position.x - Game.WIDTH/2) , position.y + (Game.getCam().position.y - Game.HEIGHT/2));
+		batch.draw(texture, position.x + (Camera.getCamX() - Game.WIDTH/2) , position.y + (Camera.getCamY() - Game.HEIGHT/2));
 	}
 
 	@Override
