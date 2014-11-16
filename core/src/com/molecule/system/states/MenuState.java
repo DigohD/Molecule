@@ -12,6 +12,7 @@ import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
 import com.molecule.system.Util;
 import com.molecule.system.gui.Button;
+import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
 public class MenuState extends GameState implements InputProcessor{
@@ -21,6 +22,7 @@ public class MenuState extends GameState implements InputProcessor{
 	private Camera cam;
 	private int timer = 0;
 	private int nucleusCX, nucleusCY;
+	private boolean soundPlayed = false;
 	
 	private boolean pClicked = false, eClicked = false, click = false;
 
@@ -33,6 +35,8 @@ public class MenuState extends GameState implements InputProcessor{
 	public void init(){
 		cam = new Camera(false);
 		
+		soundPlayed = false;
+		
 		play = new Button("buttonplay", 100, 570);
 		options = new Button("buttonoptions", 100, 330);
 		exit = new Button("buttonquit", 100, 90);
@@ -44,6 +48,9 @@ public class MenuState extends GameState implements InputProcessor{
 		nucleus = TextureLoader.textures.get("menunucleus");
 		particle = TextureLoader.textures.get("menuparticle");
 		particleint = TextureLoader.textures.get("menuparticleint");
+		
+		SoundLoader.music.get("menum2").setLooping(true);
+		SoundLoader.music.get("menum2").play();
 	}
 
 	@Override
@@ -52,22 +59,47 @@ public class MenuState extends GameState implements InputProcessor{
 		Camera.getCam().position.set(Camera.getCam().viewportWidth / 2f, Camera.getCam().viewportHeight / 2f, 0);
 		if(pClicked || timer > 0 && !click){
 			click = true;
+			
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			if(1 - ((float) timer / 18) < 0)
+				SoundLoader.music.get("menum2").setVolume(0);
+			else
+				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
+			
 			timer++;
 			if(timer >= 30){
 				timer = 0;
 				pClicked = false;
 				click = false;
+				SoundLoader.music.get("menum2").stop();
+				SoundLoader.music.get("menum2").dispose();
+
 				gsm.push(new PlayState(gsm));
 			}
 		}
 		
 		if(eClicked || timer > 0 && !click){
 			click = true;
+			
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			if(1 - ((float) timer / 18) < 0)
+				SoundLoader.music.get("menum2").setVolume(0);
+			else
+				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
+			
 			timer++;
 			if(timer >= 30){
 				timer = 0;
 				eClicked = false;
 				click = false;
+				SoundLoader.music.get("menum2").stop();
+				SoundLoader.music.get("menum2").dispose();
 				Gdx.app.exit();
 			}
 		}
@@ -105,7 +137,9 @@ public class MenuState extends GameState implements InputProcessor{
 		
 		play.render(renderer.getBatch());
 		if(pClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
+		
 		options.render(renderer.getBatch());
+		
 		exit.render(renderer.getBatch());
 		if(eClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
 		

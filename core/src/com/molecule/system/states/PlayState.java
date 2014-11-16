@@ -1,6 +1,7 @@
 package com.molecule.system.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.molecule.entity.enemy.Enemy;
 import com.molecule.system.Camera;
@@ -9,6 +10,7 @@ import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
 import com.molecule.system.gui.JoyStick;
 import com.molecule.system.util.GranuleBuffer;
+import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
 public class PlayState extends GameState{
@@ -39,7 +41,13 @@ public class PlayState extends GameState{
 		bgS.setScale(10);
 		camera = new Camera(true);
 		joyStick = new JoyStick(gsm);
-				
+		
+		new SoundLoader();
+		
+		Music m = Gdx.audio.newMusic(Gdx.files.internal("sound/gamem1.mp3"));
+		m.setLooping(true);
+		m.play();
+		
 		for(int i = 0; i < 6; i++){
 			new Enemy();
 		}
@@ -49,7 +57,7 @@ public class PlayState extends GameState{
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(joyStick);
-
+		
 		eManager.tick(dt);
 		camera.tick(dt);
 		
