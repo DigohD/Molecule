@@ -1,6 +1,7 @@
 package com.molecule.system.gui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +10,8 @@ import com.molecule.entity.Renderable;
 import com.molecule.system.Camera;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
+import com.molecule.system.GameStateManager;
+import com.molecule.system.states.PauseState;
 import com.molecule.system.util.TextureLoader;
 
 public class JoyStick implements InputProcessor, Renderable{
@@ -16,7 +19,10 @@ public class JoyStick implements InputProcessor, Renderable{
 	private Vector2 position;
 	private Texture texture;
 	
-	public JoyStick(){
+	private GameStateManager gsm;
+	
+	public JoyStick(GameStateManager gsm){
+		this.gsm = gsm;
 		position = new Vector2(20, 20);
 		texture = TextureLoader.textures.get("joystick");
 	}
@@ -69,10 +75,19 @@ public class JoyStick implements InputProcessor, Renderable{
 		
 		return true;
 	}
+	
+	public boolean keyDown(int keycode) {
+		if(keycode == Keys.BACK){
+			//gsm.pop();
+			//EntityManager.clear();
+			gsm.push(new PauseState(gsm));
+		}
+		return true;
+	}
 
 	public boolean mouseMoved(int screenX, int screenY) {return false;}
 	public boolean scrolled(int amount) {return false;}
-	public boolean keyDown(int keycode) {return false;}
+	
 	public boolean keyUp(int keycode) {return false;}
 	public boolean keyTyped(char character) {return false;}
 

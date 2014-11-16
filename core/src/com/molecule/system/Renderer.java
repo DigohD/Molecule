@@ -9,6 +9,7 @@ public class Renderer {
 	
 	private static SpriteBatch batch;
 	private static ShaderProgram shader;
+	private static ShaderProgram basicShader;
 	
 	public Renderer(int width, int height){
 		Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -22,14 +23,19 @@ public class Renderer {
 		if(!shader.isCompiled())
 			 Gdx.app.log("Problem loading shader:", shader.getLog());
 		
+		basicShader = new ShaderProgram(Gdx.files.internal("shaders/basicVertShader.vert").readString(), 
+				Gdx.files.internal("shaders/basicFragShader.frag").readString());
+		
+		if(!basicShader.isCompiled())
+			 Gdx.app.log("Problem loading shader:", shader.getLog());
 		
 	}
 	
-	public static void enableCustomShader(){
+	public static void enableShader(ShaderProgram shader){
 		batch.setShader(shader);
 	}
 	
-	public void render(){
+	public void clearScreen(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 	
@@ -60,6 +66,10 @@ public class Renderer {
 
 	public static ShaderProgram getShader() {
 		return shader;
+	}
+
+	public static ShaderProgram getBasicShader() {
+		return basicShader;
 	}
 
 }

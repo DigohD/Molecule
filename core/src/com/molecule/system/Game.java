@@ -30,7 +30,7 @@ public class Game extends ApplicationAdapter{
 	@Override
 	public void render(){
 		tick(Gdx.graphics.getDeltaTime()*10);
-		renderer.render();
+		renderer.clearScreen();
 		gsm.render(renderer);
 	}
 	
@@ -43,6 +43,7 @@ public class Game extends ApplicationAdapter{
 	 
 	@Override
 	public void dispose(){
+		System.out.println("DISPOSE");
 		renderer.dispose();
 		EntityManager.clear();
 	}

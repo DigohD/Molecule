@@ -31,23 +31,25 @@ public class PlayState extends GameState{
 
 	@Override
 	public void init() {
+		Gdx.input.setCatchBackKey(true);
 		new GranuleBuffer();
 		eManager = new EntityManager();
 		bgS = new Sprite(TextureLoader.textures.get("bg"));
 		bgS.scale(4);
+		bgS.setScale(10);
 		camera = new Camera(true);
-		joyStick = new JoyStick();
-		Gdx.input.setInputProcessor(joyStick);
-		
+		joyStick = new JoyStick(gsm);
+				
 		for(int i = 0; i < 6; i++){
 			new Enemy();
 		}
 		
-		Renderer.enableCustomShader();
 	}
 
 	@Override
 	public void tick(float dt) {
+		Gdx.input.setInputProcessor(joyStick);
+
 		eManager.tick(dt);
 		camera.tick(dt);
 		
@@ -58,8 +60,7 @@ public class PlayState extends GameState{
 
 	@Override
 	public void render(Renderer renderer) {
-		bgS.setScale(10);
-		
+		Renderer.enableShader(Renderer.getShader());
 		Renderer.getShader().begin();
 		
 		Renderer.getShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
