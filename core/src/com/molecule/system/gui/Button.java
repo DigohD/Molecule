@@ -26,6 +26,15 @@ public class Button implements Renderable{
 		
 	}
 	
+	public Button(String name, String clickedName, float x, float y){
+		this.x = x;
+		this.y = y;
+		sprite = new Sprite(TextureLoader.textures.get(name));
+		clickedSprite = new Sprite(TextureLoader.textures.get("clickedName"));
+		
+		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+	}
+	
 	@Override
 	public void render(SpriteBatch batch) {
 		batch.draw(sprite, x, y);
