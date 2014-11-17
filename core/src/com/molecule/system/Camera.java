@@ -14,7 +14,6 @@ public class Camera {
 	public Camera(boolean dynamic){
 		this.dynamic = dynamic;
 		
-		
 		if(dynamic)
 			cam.position.set(EntityManager.getPlayer().getPosition().x, EntityManager.getPlayer().getPosition().y, 0);
 		else

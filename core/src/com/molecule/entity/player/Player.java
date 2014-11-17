@@ -12,6 +12,7 @@ import com.molecule.entity.Collideable;
 import com.molecule.entity.Entity;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.Tickable;
+import com.molecule.entity.enemy.Enemy;
 import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
@@ -29,20 +30,29 @@ import com.molecule.system.util.TextureLoader;
 
 public class Player extends Entity implements Tickable, Collideable, Renderable{
 
-	private Vector2 targetVel, velocity;
+	private Vector2 velocity;
+	private Vector2 targetVel;
+	private Vector2 targetPos;
+	private Vector2 diff = new Vector2(0,0);
+	private Vector2 pos = new Vector2(0,0);
+	
 	private Nucleus nucleus;
-	private boolean update;
+	
 	private Sprite healthBar = new Sprite(TextureLoader.textures.get("healthbar"));
 	private Sprite healthBarFrame = new Sprite(TextureLoader.textures.get("healthbarframe"));
 	private BitmapFont healthFont;
 	
 	private ArrayList<Particle> inventory = new ArrayList<Particle>();
 	
+	private boolean collision = false;
+	private boolean update;
+	
 	public Player(Vector2 position){
 		super(position);
 		nucleus = new Nucleus(Type.PLAYER);
 		velocity = new Vector2(0,0);
 		targetVel = new Vector2(0,0);
+		targetPos = new Vector2(0,0);
 		
 		healthFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 		
@@ -55,6 +65,7 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		EntityManager.addEntity(this);
 	}
 
+	int timer = 0; 
 	@Override
 	public void tick(float dt) {
 		if(!update){
@@ -62,10 +73,21 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 			targetVel.y = 0;
 		}
 		
-		velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
-		velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
+		if(collision){
+			timer++;
+			if(timer >= 30){
+				timer = 0;
+				collision = false;
+			}
+		}else{
+			velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
+			velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
+		}
+		
+		
 		
 		nucleus.setVelocity(velocity);
+		
 	}
 	
 	@Override
@@ -86,6 +108,12 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 				return;
 			}else
 				nucleus.getStats().getStat(StatID.HP_NOW).setNewBase(newHP);
+		}
+		
+		if(obj instanceof Enemy){
+			collision = true;
+			velocity.x = -velocity.x * 1.01f;
+			velocity.y = -velocity.y * 1.01f;
 		}
 	}
 
@@ -163,6 +191,10 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 	private void tickAlert(){
 		alertTimer += 0.2f;
 		alertScale = (float) Math.sin(alertTimer) / 5f;
+	}
+
+	public boolean isCollision() {
+		return collision;
 	}
 	
 	public ArrayList<Particle> getEquippedParticles(){

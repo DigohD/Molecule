@@ -15,6 +15,14 @@ public abstract class Entity {
 	public Entity(Vector2 position){
 		this.position = position;
 	}
+	
+	public float getX(){
+		return position.x;
+	}
+	
+	public float getY(){
+		return position.y;
+	}
 
 	public Vector2 getPosition() {
 		return position;
