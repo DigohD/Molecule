@@ -68,12 +68,12 @@ public class PlayState extends GameState{
 
 	@Override
 	public void render(Renderer renderer) {
-		Renderer.enableShader(Renderer.getShader());
-		Renderer.getShader().begin();
-		
-		Renderer.getShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
-		Renderer.getShader().setUniformf("waveDataX", angleWave);
-		Renderer.getShader().setUniformf("waveDataY", amplitudeWave);
+//		Renderer.enableShader(Renderer.getShader());
+//		Renderer.getShader().begin();
+//		
+//		Renderer.getShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
+//		Renderer.getShader().setUniformf("waveDataX", angleWave);
+//		Renderer.getShader().setUniformf("waveDataY", amplitudeWave);
 		
 		renderer.getBatch().begin();
 		renderer.getBatch().setProjectionMatrix(Camera.getCam().combined);
@@ -87,7 +87,7 @@ public class PlayState extends GameState{
 		joyStick.render(renderer.getBatch());
 		
 		renderer.getBatch().end();
-		Renderer.getShader().end();
+//		Renderer.getShader().end();
 	}
 
 }

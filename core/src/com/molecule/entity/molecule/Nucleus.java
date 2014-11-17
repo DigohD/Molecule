@@ -43,7 +43,6 @@ public class Nucleus extends DynamicEntity{
 	
 	public Nucleus(Type ownerType){
 		this("core", new Vector2(0, 0), ownerType);
-		this.ownerType = ownerType;
 	}
 	
 	public Nucleus(String image, Vector2 position, Type ownerType){
@@ -90,6 +89,10 @@ public class Nucleus extends DynamicEntity{
 		
 		for(Particle p : children)
 			p.tick(dt);
+		
+		/* Stat ticking */
+		
+		regen();
 	}
 	
 	@Override
@@ -102,6 +105,14 @@ public class Nucleus extends DynamicEntity{
 			p.draw(batch);
 	}
 
+	public void regen(){
+		float hpOld = stats.getStat(StatID.HP_NOW).getBase();
+		float newHP = hpOld + stats.getStat(StatID.HP_REGEN).getTotal();
+		stats.getStat(StatID.HP_NOW).setNewBase(newHP);
+		if(stats.getStat(StatID.HP_NOW).getTotal() > stats.getStat(StatID.HP_MAX).getTotal())
+			stats.getStat(StatID.HP_NOW).setNewBase(stats.getStat(StatID.HP_MAX).getTotal());
+	}
+	
 	@Override
 	public Vector2 getPosition(){
 		return position;

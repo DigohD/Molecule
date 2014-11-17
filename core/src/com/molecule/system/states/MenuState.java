@@ -109,9 +109,9 @@ public class MenuState extends GameState implements InputProcessor{
 	
 	@Override
 	public void render(Renderer renderer) {
-		Renderer.enableShader(Renderer.getBasicShader());
-		Renderer.getBasicShader().begin();
-		Renderer.getBasicShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
+//		Renderer.enableShader(Renderer.getBasicShader());
+//		Renderer.getBasicShader().begin();
+//		Renderer.getBasicShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
 		renderer.getBatch().begin();
 		renderer.getBatch().setProjectionMatrix(Camera.getCam().combined);
 		Camera.getCam().update();   

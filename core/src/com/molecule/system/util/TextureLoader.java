@@ -33,6 +33,8 @@ public class TextureLoader{
 		
 		
 		textures.put("bg", new Texture(Gdx.files.internal("textures/bg.png")));
+		textures.put("healthbar", new Texture(Gdx.files.internal("textures/healthbar.png")));
+		textures.put("healthbarframe", new Texture(Gdx.files.internal("textures/healthbarframe.png")));
 		
 		textures.put("core", new Texture(Gdx.files.internal("textures/core.png")));
 		textures.put("particle", new Texture(Gdx.files.internal("textures/particle.png")));

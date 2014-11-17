@@ -35,7 +35,7 @@ public abstract class Particle implements Tickable{
 		this.parent = parent;
 		
 		centerV = new Vector2(0, 0);
-		tint = new Color();
+		tint = new Color(1, 1, 1, 1);
 	}
 	
 	public void addParticleMod(ParticleMod mod){
