@@ -99,7 +99,7 @@ public class EntityManager {
 		rToAdd.clear();
 	}
 	
-	public void removeDeadEntities(){
+	public static void removeDeadEntities(){
 		for(int i = 0; i < tickables.size(); i++){
 			Tickable t = tickables.get(i);
 			Entity e = null;
@@ -114,7 +114,7 @@ public class EntityManager {
 		}
 	}
 
-	public void tick(float dt){
+	public static void tick(float dt){
 		
 		for(Tickable t : tToAdd)
 			tickables.add(t);
@@ -134,7 +134,7 @@ public class EntityManager {
 			t.tick(dt);
 	}
 	
-	public void render(SpriteBatch batch){
+	public static void render(SpriteBatch batch){
 		for(Renderable r : renderables){
 			r.render(batch);
 		}

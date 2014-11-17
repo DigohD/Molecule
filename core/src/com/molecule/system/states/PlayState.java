@@ -15,7 +15,6 @@ import com.molecule.system.util.TextureLoader;
 
 public class PlayState extends GameState{
 	
-	private EntityManager eManager;
 	private JoyStick joyStick;
 	private Camera camera;
 	private Sprite bgS;
@@ -58,7 +57,7 @@ public class PlayState extends GameState{
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(joyStick);
 		
-		eManager.tick(dt);
+		EntityManager.tick(dt);
 		camera.tick(dt);
 		
 		angleWave += dt * angleWaveSpeed;
@@ -83,7 +82,7 @@ public class PlayState extends GameState{
 		bgS.draw(renderer.getBatch());
 		
 		Camera.getCam().update();    
-		eManager.render(renderer.getBatch());
+		EntityManager.render(renderer.getBatch());
 		joyStick.render(renderer.getBatch());
 		
 		renderer.getBatch().end();

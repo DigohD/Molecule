@@ -79,7 +79,7 @@ public class QuarkGun extends ParticleMod{
 
 	@Override
 	public int getDrawHeight() {
-		return 340;
+		return 380;
 	}
 
 	@Override

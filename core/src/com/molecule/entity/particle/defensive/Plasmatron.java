@@ -4,6 +4,7 @@ import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.ParticleMod;
 import com.molecule.entity.stats.StatMod;
+import com.molecule.entity.stats.StatsSheet;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.Renderer;
 import com.molecule.system.util.StatHashBuffer;
@@ -36,12 +37,21 @@ public class Plasmatron extends ParticleMod{
 
 	@Override
 	public void drawMod(Renderer renderer, float x, float y) {
+		font.setScale(1.3f);
 		
+		font.draw(renderer.getBatch(), getName(), x, y);
+		
+		font.setScale(1.1f);
+		
+		String statS = String.format("%.1f", mod.getAmount());
+		
+		font.draw(renderer.getBatch(), StatsSheet.getStatString(mod.getAffectedStat()), x, y - 100);
+		font.draw(renderer.getBatch(), statS, x + 300, y - 100);
 	}
 
 	@Override
 	public int getDrawHeight() {
-		return 0;
+		return 200;
 	}
 
 	@Override
