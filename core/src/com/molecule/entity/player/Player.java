@@ -82,18 +82,21 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 			targetVel.y = 0;
 		}
 		
-//		if(collision){
-//			timer++;
-//			if(timer >= 60){
-//				timer = 0;
-//				collision = false;
-//			}
-//		}else{
-			velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
-			velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
-//		}
+		if(collision){
+			timer++;
+			if(velocity.x == targetVel.x && velocity.y == targetVel.y){
+				timer = 0;
+				targetVel.x = 0;
+				targetVel.y = 0;
+				collision = false;
+				update = false;
+			}
+		}else{
+			
+		}
 		
-		
+		velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
+		velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
 		
 		nucleus.setVelocity(velocity);
 		
@@ -120,9 +123,51 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		}
 		
 		if(obj instanceof Enemy){
-//			collision = true;
-//			velocity.x = -velocity.x * 1.01f;
-//			velocity.y = -velocity.y * 1.01f;
+			System.out.println("VELOCITY_X: " + velocity.x);
+			System.out.println("VELOCITY_Y: " + velocity.y);
+			Enemy e = (Enemy) obj;
+			
+			float v = 15;
+			
+			if(targetVel.x < 0 && targetVel.y < 0){
+				setTargetVel(v, v);
+			}
+			
+			if(targetVel.x > 0 && targetVel.y > 0){
+				setTargetVel(-v, -v);
+			}
+			
+//			if(e.getX() < position.x){
+//				setTargetVel(-v, v);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(v, -v);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(-v, -v);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(v, 0);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(0, v);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(-v, 0);
+//			}
+//			
+//			if(e.getX() < position.x){
+//				setTargetVel(0, -v);
+//			}
+//			
+			
+			collision = true;
+			update = true;
 		}
 	}
 
