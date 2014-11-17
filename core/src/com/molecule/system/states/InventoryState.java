@@ -32,7 +32,7 @@ public class InventoryState extends GameState implements InputProcessor{
 	@Override
 	public void init(){
 		cam = new Camera(false);
-		
+
 		soundPlayed = false;
 		
 		exts = new Button("buttonext", 100, 570);

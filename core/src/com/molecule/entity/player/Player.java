@@ -77,16 +77,16 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 			targetVel.y = 0;
 		}
 		
-		if(collision){
-			timer++;
-			if(timer >= 30){
-				timer = 0;
-				collision = false;
-			}
-		}else{
+//		if(collision){
+//			timer++;
+//			if(timer >= 60){
+//				timer = 0;
+//				collision = false;
+//			}
+//		}else{
 			velocity.x = PhysicsUtil.approach(targetVel.x, velocity.x, dt * 5.0f);
 			velocity.y = PhysicsUtil.approach(targetVel.y, velocity.y, dt * 5.0f);
-		}
+//		}
 		
 		
 		
@@ -115,9 +115,9 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		}
 		
 		if(obj instanceof Enemy){
-			collision = true;
-			velocity.x = -velocity.x * 1.01f;
-			velocity.y = -velocity.y * 1.01f;
+//			collision = true;
+//			velocity.x = -velocity.x * 1.01f;
+//			velocity.y = -velocity.y * 1.01f;
 		}
 	}
 
