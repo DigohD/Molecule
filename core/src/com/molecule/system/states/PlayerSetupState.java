@@ -62,11 +62,17 @@ public class PlayerSetupState extends GameState implements InputProcessor{
 			else
 				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
 			
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				playClicked = false;
 				click = false;
+				soundPlayed = false;
 
 				SoundLoader.music.get("menum2").stop();
 				SoundLoader.music.get("menum2").dispose();
@@ -78,11 +84,17 @@ public class PlayerSetupState extends GameState implements InputProcessor{
 		if(invClicked || timer > 0 && !click){
 			click = true;
 			
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				invClicked = false;
 				click = false;
+				soundPlayed = false;
 
 				gsm.push(new InventoryState(gsm));
 			}
@@ -91,11 +103,17 @@ public class PlayerSetupState extends GameState implements InputProcessor{
 		if(exitClicked || timer > 0 && !click){
 			click = true;
 			
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				exitClicked = false;
 				click = false;
+				soundPlayed = false;
 
 				gsm.pop();
 			}

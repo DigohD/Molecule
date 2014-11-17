@@ -72,6 +72,7 @@ public class MenuState extends GameState implements InputProcessor{
 				timer = 0;
 				pClicked = false;
 				click = false;
+				soundPlayed = false;
 
 				gsm.push(new PlayerSetupState(gsm));
 			}
@@ -90,6 +91,7 @@ public class MenuState extends GameState implements InputProcessor{
 				timer = 0;
 				eClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				Gdx.app.exit();
 			}

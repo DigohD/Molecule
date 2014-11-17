@@ -56,11 +56,18 @@ public class InventoryState extends GameState implements InputProcessor{
 		if(exitClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				exitClicked = false;
 				click = false;
+				soundPlayed = false;
+				
 				gsm.pop();
 			}
 		}
@@ -68,11 +75,17 @@ public class InventoryState extends GameState implements InputProcessor{
 		if(extsClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				extsClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				gsm.push(new InventoryManageState(gsm, invType.EXTERNALS));
 			}
@@ -81,11 +94,17 @@ public class InventoryState extends GameState implements InputProcessor{
 		if(intsClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				intsClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				gsm.push(new InventoryManageState(gsm, invType.INTERNALS));
 			}

@@ -19,6 +19,12 @@ public class SoundLoader{
 		
 		sounds.put("death", Gdx.audio.newSound(Gdx.files.internal("sound/death.wav")));
 		
+		// UI
+		sounds.put("pdelete", Gdx.audio.newSound(Gdx.files.internal("sound/pdelete.wav")));
+		sounds.put("pequip", Gdx.audio.newSound(Gdx.files.internal("sound/pequip.wav")));
+		sounds.put("punequip", Gdx.audio.newSound(Gdx.files.internal("sound/punequip.wav")));
+		sounds.put("pselect", Gdx.audio.newSound(Gdx.files.internal("sound/pselect.wav")));
+		
 		music.put("menum", Gdx.audio.newMusic(Gdx.files.internal("sound/menum.mp3")));
 		music.put("menum2", Gdx.audio.newMusic(Gdx.files.internal("sound/menum2.mp3")));
 		music.put("gamem1", Gdx.audio.newMusic(Gdx.files.internal("sound/gamem1.mp3")));

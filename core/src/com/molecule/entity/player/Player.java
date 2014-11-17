@@ -261,9 +261,10 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 	}
 	
 	public void unequip(Particle p){
-		if(nucleus.getChildren().contains(p))
+		if(nucleus.getChildren().contains(p)){
 			nucleus.removeParticle(p);
-		inventory.add(p);
+			inventory.add(p);
+		}
 	}
 	
 	public void addToInventory(Particle p){

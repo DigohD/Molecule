@@ -17,6 +17,7 @@ import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
 import com.molecule.system.gui.Button;
 import com.molecule.system.gui.ParticleSlot;
+import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
 public class InventoryManageState extends GameState implements InputProcessor{
@@ -33,6 +34,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 	private int timer = 0, touchTimer = 0;
 	private float scrollOffset;
 	private boolean click = false, backClicked = false, deleteClicked = false, equipClicked = false, unequipClicked;
+	private boolean soundPlayed = false;
 	
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 	
@@ -96,22 +98,35 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		if(backClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("buttonclick").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
 			if(timer >= 15){
 				timer = 0;
 				backClicked = false;
 				click = false;
+				soundPlayed = false;
+				
 				gsm.pop();
 			}
 		}
 		else if(deleteClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("pdelete").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
 			if(timer >= 15){
 				timer = 0;
 				deleteClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				player.unequip(selected.getContained());
 				player.removeFromInventory(selected.getContained());
@@ -128,11 +143,17 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		else if(equipClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("pequip").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
 			if(timer >= 15){
 				timer = 0;
 				equipClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				player.equip(selected.getContained());
 				selected.setEquipped(true);
@@ -141,11 +162,17 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		else if(unequipClicked || timer > 0 && !click){
 			click = true;
 
+			if(!soundPlayed){
+				SoundLoader.sounds.get("punequip").play();
+				soundPlayed = true;
+			}
+			
 			timer++;
 			if(timer >= 15){
 				timer = 0;
 				unequipClicked = false;
 				click = false;
+				soundPlayed = false;
 				
 				player.unequip(selected.getContained());
 				selected.setEquipped(false);
@@ -243,6 +270,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			for(ParticleSlot ps : particleSlots){
 				if(ps.getRect().contains(x, y)){
 					selected = ps;
+					SoundLoader.sounds.get("pselect").play();
 					selected.setScrollOffset(0);
 				}
 			}	
