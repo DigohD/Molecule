@@ -34,7 +34,9 @@ public class TextureLoader{
 		
 		// Inventory
 		textures.put("delete", new Texture(Gdx.files.internal("textures/gui/inventory/delete.png")));
+		textures.put("deletep", new Texture(Gdx.files.internal("textures/gui/inventory/deletep.png")));
 		textures.put("equip", new Texture(Gdx.files.internal("textures/gui/inventory/equip.png")));
+		textures.put("equipp", new Texture(Gdx.files.internal("textures/gui/inventory/equipp.png")));
 		textures.put("inventorybg", new Texture(Gdx.files.internal("textures/gui/inventory/inventorybg.png")));
 		textures.put("inventoryitem", new Texture(Gdx.files.internal("textures/gui/inventory/inventoryitem.png")));
 		textures.put("buttonext", new Texture(Gdx.files.internal("textures/gui/inventory/buttonext.png")));

@@ -20,13 +20,13 @@ import com.molecule.system.util.TextureLoader;
 public class InventoryManageState extends GameState implements InputProcessor{
 
 	private Texture bg, delete, equip;
-	private Button back;
+	private Button back, deleteButton;
 	private Player player = EntityManager.getPlayer();
 	private ArrayList<ParticleSlot> particleSlots = new ArrayList<ParticleSlot>();
 	private Camera cam;
 	private int timer = 0, touchTimer = 0;
 	private float scrollOffset;
-	private boolean click = false, backClicked = false;
+	private boolean click = false, backClicked = false, deleteClicked = false;
 	
 	
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
@@ -45,6 +45,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		equip = TextureLoader.textures.get("equip");
 		
 		back = new Button("buttonback", 30, 15);
+		deleteButton = new Button("delete", "deletep", 1020, 30);
 		
 		for(Particle p : player.getInventory())
 			particleSlots.add(new ParticleSlot(p));
@@ -67,6 +68,26 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				backClicked = false;
 				click = false;
 				gsm.pop();
+			}
+		}
+		
+		if(deleteClicked || timer > 0 && !click){
+			click = true;
+
+			timer++;
+			if(timer >= 30){
+				timer = 0;
+				deleteClicked = false;
+				click = false;
+				
+				player.removeFromInventory(selected.getContained());
+				selected.setContained(null);
+				selected = null;
+				
+				particleSlots = new ArrayList<ParticleSlot>();
+				
+				for(Particle p : player.getInventory())
+					particleSlots.add(new ParticleSlot(p));
 			}
 		}
 	}
@@ -94,12 +115,13 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		
 		if(selected != null){
 			nameFont.draw(renderer.getBatch(), selected.getContained().getName(), 1020, 1030);
+			
+			deleteButton.render(renderer.getBatch());
+			if(deleteClicked) renderer.getBatch().draw(deleteButton.getClickedSprite(), deleteButton.getX(), deleteButton.getY());
+			
 			renderer.getBatch().draw(delete, 1020, 30);
 			renderer.getBatch().draw(equip, 1250, 30);
 		}
-		
-		
-		
 		
 		renderer.getBatch().end();
 	}
@@ -141,11 +163,14 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			if(back.getRect().contains(x, y)){
 				backClicked = true;
 				return true;
+			}else if(deleteButton.getRect().contains(x, y)){
+				deleteClicked = true;
+				return true;
 			}
+			
 			
 			for(ParticleSlot ps : particleSlots){
 				if(ps.getRect().contains(x, y)){
-					System.out.println(ps.getRect().toString() + " CONTAINS " + x + " : " + y);
 					selected = ps;
 					selected.setScrollOffset(0);
 				}

@@ -30,7 +30,7 @@ public class Button implements Renderable{
 		this.x = x;
 		this.y = y;
 		sprite = new Sprite(TextureLoader.textures.get(name));
-		clickedSprite = new Sprite(TextureLoader.textures.get("clickedName"));
+		clickedSprite = new Sprite(TextureLoader.textures.get(clickedName));
 		
 		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
 	}
