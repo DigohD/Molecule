@@ -33,25 +33,25 @@ public class EntityManager {
 	public EntityManager(){
 		player = new Player(new Vector2(100, 100));
 		
-		ExternalParticle p = new ExternalParticle(player.getNucleus());
-		p.addParticleMod(new QuarkGun(p));
-		player.getNucleus().addParticle(p);
-		p = new ExternalParticle(player.getNucleus());
-		p.addParticleMod(new QuarkGun(p));
-		player.getNucleus().addParticle(p);
-		p = new ExternalParticle(player.getNucleus());
-		p.addParticleMod(new QuarkGun(p));
-		player.getNucleus().addParticle(p);
-		
-		InternalParticle ip = new InternalParticle(player.getNucleus());
-		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
-		player.getNucleus().addParticle(ip);
-		ip = new InternalParticle(player.getNucleus());
-		ip.addParticleMod(new Plasmatron(ip, StatID.HP_REGEN, 0.03f));
-		player.getNucleus().addParticle(ip);
-		ip = new InternalParticle(player.getNucleus());
-		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
-		player.getNucleus().addParticle(ip);
+//		ExternalParticle p = new ExternalParticle(player.getNucleus());
+//		p.addParticleMod(new QuarkGun(p));
+//		player.getNucleus().addParticle(p);
+//		p = new ExternalParticle(player.getNucleus());
+//		p.addParticleMod(new QuarkGun(p));
+//		player.getNucleus().addParticle(p);
+//		p = new ExternalParticle(player.getNucleus());
+//		p.addParticleMod(new QuarkGun(p));
+//		player.getNucleus().addParticle(p);
+//		
+//		InternalParticle ip = new InternalParticle(player.getNucleus());
+//		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
+//		player.getNucleus().addParticle(ip);
+//		ip = new InternalParticle(player.getNucleus());
+//		ip.addParticleMod(new Plasmatron(ip, StatID.HP_REGEN, 0.03f));
+//		player.getNucleus().addParticle(ip);
+//		ip = new InternalParticle(player.getNucleus());
+//		ip.addParticleMod(new Plasmatron(ip, StatID.HP_MAX, 10));
+//		player.getNucleus().addParticle(ip);
 		
 		player.getNucleus().getStats().getStat(StatID.HP_NOW).setNewBase(
 				player.getNucleus().getStats().getStat(StatID.HP_MAX).getTotal());

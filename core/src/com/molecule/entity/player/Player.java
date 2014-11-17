@@ -205,6 +205,14 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		return nucleus.getChildren();
 	}
 	
+	public void equip(Particle p){
+		nucleus.getChildren().add(p);
+	}
+	
+	public void unequip(Particle p){
+		nucleus.getChildren().remove(p);
+	}
+	
 	public void addToInventory(Particle p){
 		inventory.add(p);
 	}
