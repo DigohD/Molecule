@@ -43,9 +43,16 @@ public class InternalParticle extends Particle{
 	}
 	
 	public void draw(SpriteBatch batch){
-//		sineOffsetX = (float) Math.sin(sineTime + sineOffset) * 75;
-//		sineOffsetY = (float) Math.cos(sineTime + sineOffset) * 20;
+		float x = centerX - drawOffsetX;
+		float y = centerY - drawOffsetY;
 		
+		img.setColor(tint);
+		img.setPosition(x, y);
+		img.draw(batch);
+	}
+
+	@Override
+	public void tick(float dt) {
 		float sineOffsetX = (float) ((20 * Math.cos(sineTime + sineOffset) * Math.cos(ellipseAngle + angleOffset)) - 
 				(3f * Math.sin(sineTime + sineOffset) * Math.sin(ellipseAngle + angleOffset)));
 		
@@ -69,15 +76,8 @@ public class InternalParticle extends Particle{
 		
 		centerV.set(centerX, centerY);
 		
-		float x = centerX - drawOffsetX;
-		float y = centerY - drawOffsetY;
-		
 		for(ParticleMod pm : mods)
 			pm.tick(1);
-		
-		img.setColor(tint);
-		img.setPosition(x, y);
-		img.draw(batch);
 	}
 	
 }

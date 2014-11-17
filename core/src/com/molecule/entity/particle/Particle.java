@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.molecule.entity.Tickable;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.defensive.Plasmatron;
 
-public abstract class Particle {
+public abstract class Particle implements Tickable{
 
 	protected Nucleus parent;
 	protected Sprite img, dot;

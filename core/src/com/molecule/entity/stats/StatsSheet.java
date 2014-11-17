@@ -8,7 +8,7 @@ public class StatsSheet {
 
 	public enum StatID {
 						/*Primary Stats*/
-						LEVEL, HP_MAX, HP_NOW
+						LEVEL, HP_MAX, HP_NOW, HP_REGEN
 	}
 	
 	public StatsSheet(){
@@ -18,6 +18,8 @@ public class StatsSheet {
 		
 		sheet.put(StatID.HP_MAX, new Stat(StatID.HP_MAX, "HP", 20));
 		sheet.put(StatID.HP_NOW, new Stat(StatID.HP_NOW, "Current HP", sheet.get(StatID.HP_MAX).getTotal()));
+		
+		sheet.put(StatID.HP_REGEN, new Stat(StatID.HP_REGEN, "HP Regeneration", 0));
 	}
 	
 	public void addMod(StatMod mod){
@@ -48,6 +50,8 @@ public class StatsSheet {
 				return "HP";
 			case HP_NOW:
 				return "Current HP";
+			case HP_REGEN:
+				return "HP Regeneration";
 			default:
 				break;
 		}

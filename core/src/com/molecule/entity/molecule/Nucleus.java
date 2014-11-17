@@ -87,6 +87,9 @@ public class Nucleus extends DynamicEntity{
 		
 		rect.setX(position.x);
 		rect.setY(position.y);
+		
+		for(Particle p : children)
+			p.tick(dt);
 	}
 	
 	@Override

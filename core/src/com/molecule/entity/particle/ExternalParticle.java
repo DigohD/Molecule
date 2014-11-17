@@ -60,9 +60,18 @@ public class ExternalParticle extends Particle{
 	
 	@Override
 	public void draw(SpriteBatch batch){
-//		sineOffsetX = (float) Math.sin(sineTime + sineOffset) * 75;
-//		sineOffsetY = (float) Math.cos(sineTime + sineOffset) * 20;
+		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
+
+		float x = centerX - drawOffsetX;
+		float y = centerY - drawOffsetY;
 		
+		img.setColor(tint);
+		img.setPosition(x, y);
+		img.draw(batch);
+	}
+
+	@Override
+	public void tick(float dt) {
 		float sineOffsetX = (float) ((75 * Math.cos(sineTime + sineOffset) * Math.cos(ellipseAngle + angleOffset)) - 
 				(20 * Math.sin(sineTime + sineOffset) * Math.sin(ellipseAngle + angleOffset)));
 		
@@ -80,25 +89,13 @@ public class ExternalParticle extends Particle{
 			sineTime += 0.1f;
 			boostStacks--;
 		}
-			
-		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
-		
-//		trail.tick(1f);
-//		trail.render(batch);
 		
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;
 		
 		centerV.set(centerX, centerY);
 		
-		float x = centerX - drawOffsetX;
-		float y = centerY - drawOffsetY;
-		
 		for(ParticleMod pm : mods)
 			pm.tick(1);
-		
-		img.setColor(tint);
-		img.setPosition(x, y);
-		img.draw(batch);
 	}
 }
