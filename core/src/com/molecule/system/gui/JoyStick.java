@@ -43,7 +43,8 @@ public class JoyStick implements InputProcessor, Renderable{
 			float dY = y - 170;
 			dX = dX / 8;
 			dY = dY / 8;
-			EntityManager.getPlayer().setTargetVel(dX, dY);
+			if(!EntityManager.getPlayer().isCollision())
+				EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
 			EntityManager.getPlayer().setUpdate(false);
 		}
@@ -68,7 +69,8 @@ public class JoyStick implements InputProcessor, Renderable{
 			float dY = y - 170;
 			dX = dX / 8;
 			dY = dY / 8;
-			EntityManager.getPlayer().setTargetVel(dX, dY);
+			if(!EntityManager.getPlayer().isCollision())
+				EntityManager.getPlayer().setTargetVel(dX, dY);
 		}else{
 			EntityManager.getPlayer().setUpdate(false);
 		}

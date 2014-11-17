@@ -25,6 +25,8 @@ public class PlayState extends GameState{
 	private float angleWaveSpeed = 0.2f;
 	private static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 	private float r;
+	
+	private int timer = 0;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -57,6 +59,15 @@ public class PlayState extends GameState{
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(joyStick);
+		
+		if(!EntityManager.getPlayer().isLive()){
+			timer++;
+			if(timer >= 60*3){
+				timer = 0;
+				EntityManager.clear();
+				gsm.pop();
+			}
+		}
 		
 		eManager.tick(dt);
 		camera.tick(dt);

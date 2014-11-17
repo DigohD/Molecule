@@ -29,6 +29,7 @@ public class Game extends ApplicationAdapter{
 	
 	@Override
 	public void render(){
+		//System.out.println("DT: " + Gdx.graphics.getDeltaTime());
 		tick(Gdx.graphics.getDeltaTime()*10);
 		renderer.clearScreen();
 		gsm.render(renderer);

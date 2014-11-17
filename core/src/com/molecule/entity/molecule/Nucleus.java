@@ -1,22 +1,20 @@
 package com.molecule.entity.molecule;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.molecule.entity.DynamicEntity;
 import com.molecule.entity.granule.NucleusTrail;
-import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.stats.StatsSheet;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.EntityManager;
-import com.molecule.system.Game;
+import com.molecule.system.Renderer;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
@@ -30,12 +28,13 @@ public class Nucleus extends DynamicEntity{
 	private float centerOffsetX, centerOffsetY;
 	private float sineX, sineY, sineTime;
 	private Color tint;
+	private Vector3 color;
 	private Vector2 velocity, topLeftPos;
 	
 	private Rectangle rect;
 	private Type ownerType;
 	
-//	private NucleusTrail trail;
+	private NucleusTrail trail;
 	
 	private StatsSheet stats = new StatsSheet();
 	
@@ -53,6 +52,7 @@ public class Nucleus extends DynamicEntity{
 		img = new Sprite(TextureLoader.textures.get(image));
 		
 		tint = new Color(1f, 1f, 1f, 1f);
+		color = new Vector3(1,1,1);
 		
 		stats = new StatsSheet();
 		
@@ -97,6 +97,8 @@ public class Nucleus extends DynamicEntity{
 	
 	@Override
 	public void render(SpriteBatch batch){
+		
+		Renderer.getShader().setUniformf("color", color);
 		img.setColor(tint);
 		img.setPosition(position.x, position.y);
 		img.draw(batch);
@@ -139,6 +141,9 @@ public class Nucleus extends DynamicEntity{
 
 	public void setTint(float r, float g, float b, float a) {
 		this.tint = new Color(r, g, b, a);
+		this.color.x = r;
+		this.color.y = g;
+		this.color.z = b;
 	}
 
 	public Sprite getImg() {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.molecule.entity.Tickable;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
@@ -25,6 +26,7 @@ public abstract class Particle implements Tickable{
 	protected float sineTime, angleOffset, sineOffset, ellipseAngle;
 	
 	protected Color tint;
+	protected Vector3 color;
 	
 	protected int boostStacks;
 	
@@ -40,6 +42,7 @@ public abstract class Particle implements Tickable{
 		
 		centerV = new Vector2(0, 0);
 		tint = new Color(1, 1, 1, 1);
+		color = new Vector3(1,1,1);
 	}
 	
 	public void addParticleMod(ParticleMod mod){
@@ -68,6 +71,9 @@ public abstract class Particle implements Tickable{
 	
 	public void setTint(float r, float g, float b, float a) {
 		tint.set(r, g, b, a);
+		color.x = r;
+		color.y = g;
+		color.z = b;
 	}
 	
 	public Type getOwnerType(){

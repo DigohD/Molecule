@@ -23,7 +23,7 @@ public class PauseState extends GameState implements InputProcessor{
 	public PauseState(GameStateManager gsm) {
 		super(gsm);
 		this.blockTicking = true;
-		this.blockRendering = true;
+		this.blockRendering = false;
 		init();
 	}
 
@@ -72,20 +72,20 @@ public class PauseState extends GameState implements InputProcessor{
 	
 	@Override
 	public void render(Renderer renderer) {
-		Renderer.enableShader(Renderer.getBasicShader());
-		Renderer.getBasicShader().begin();
-		Renderer.getBasicShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
+//		Renderer.enableShader(Renderer.getBasicShader());
+//		Renderer.getBasicShader().begin();
+//		Renderer.getBasicShader().setUniformMatrix("u_projTrans", renderer.getBatch().getProjectionMatrix());
 		renderer.getBatch().begin();
 		renderer.getBatch().setProjectionMatrix(Camera.getCam().combined);
 		Camera.getCam().update();   
 		
-		renderer.getBatch().draw(bg, 0, 0);
-		renderer.getBatch().draw(shine, -1000 + shineTimer, 0);
-		renderer.getBatch().draw(bgalpha, 0, 0);
-		
-		shineTimer += 12;
-		if(shineTimer > 3000)
-			shineTimer = 0;
+//		renderer.getBatch().draw(bg, 0, 0);
+//		renderer.getBatch().draw(shine, -1000 + shineTimer, 0);
+//		renderer.getBatch().draw(bgalpha, 0, 0);
+//		
+//		shineTimer += 12;
+//		if(shineTimer > 3000)
+//			shineTimer = 0;
 		
 		play.render(renderer.getBatch());
 		if(pClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
@@ -93,7 +93,7 @@ public class PauseState extends GameState implements InputProcessor{
 		if(eClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
 		
 		renderer.getBatch().end();
-		Renderer.getBasicShader().end();
+//		Renderer.getBasicShader().end();
 	}
 	
 	@Override

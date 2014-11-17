@@ -15,6 +15,7 @@ import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
 
 
+import com.molecule.system.Renderer;
 import com.molecule.system.Util;
 
 
@@ -24,6 +25,7 @@ public class ExternalParticle extends Particle{
 		super(parent);
 		
 		img = new Sprite(TextureLoader.textures.get("particle"));
+		
 		
 		trail = new ParticleTrail(this, 1, 20);
 		
@@ -56,14 +58,17 @@ public class ExternalParticle extends Particle{
 		
 		this.angleOffset = angleOffset;
 		this.sineOffset = sineOffset;
+		
+		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch){
-		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
 
 		float x = centerX - drawOffsetX;
 		float y = centerY - drawOffsetY;
+		
+		Renderer.getShader().setUniformf("color", color);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);
