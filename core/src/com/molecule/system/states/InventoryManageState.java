@@ -20,13 +20,13 @@ import com.molecule.system.util.TextureLoader;
 public class InventoryManageState extends GameState implements InputProcessor{
 
 	private Texture bg;
-	private Button back, deleteButton, equipButton;
+	private Button back, deleteButton, equipButton, unequipButton;
 	private Player player = EntityManager.getPlayer();
 	private ArrayList<ParticleSlot> particleSlots = new ArrayList<ParticleSlot>();
 	private Camera cam;
 	private int timer = 0, touchTimer = 0;
 	private float scrollOffset;
-	private boolean click = false, backClicked = false, deleteClicked = false, equipClicked = false;
+	private boolean click = false, backClicked = false, deleteClicked = false, equipClicked = false, unequipClicked;
 	
 	
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
@@ -44,7 +44,14 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		
 		back = new Button("buttonback", 30, 15);
 		deleteButton = new Button("delete", "deletep", 1020, 30);
-		equipButton = new Button("equip", "equipp", 1020, 260);
+		equipButton = new Button("equip", "equipp", 1250, 30);
+		unequipButton = new Button("unequip", "unequipp", 1250, 30);
+		
+		for(Particle p : player.getEquippedParticles()){
+			ParticleSlot eq = new ParticleSlot(p);
+			eq.setEquipped(true);
+			particleSlots.add(eq);
+		}
 		
 		for(Particle p : player.getInventory())
 			particleSlots.add(new ParticleSlot(p));
@@ -79,14 +86,16 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				deleteClicked = false;
 				click = false;
 				
+				player.unequip(selected.getContained());
 				player.removeFromInventory(selected.getContained());
 				selected.setContained(null);
 				selected = null;
-				
-				particleSlots = new ArrayList<ParticleSlot>();
-				
-				for(Particle p : player.getInventory())
-					particleSlots.add(new ParticleSlot(p));
+						
+				ParticleSlot toRemove = null;
+				for(ParticleSlot p : particleSlots)
+					if(p.getContained() == null)
+						toRemove = p;
+				particleSlots.remove(toRemove);	
 			}
 		}
 		
@@ -100,13 +109,21 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				click = false;
 				
 				player.equip(selected.getContained());
-				selected.setContained(null);
-				selected = null;
+				selected.setEquipped(true);
+			}
+		}
+		
+		if(unequipClicked || timer > 0 && !click){
+			click = true;
+
+			timer++;
+			if(timer >= 30){
+				timer = 0;
+				unequipClicked = false;
+				click = false;
 				
-				particleSlots = new ArrayList<ParticleSlot>();
-				
-				for(Particle p : player.getInventory())
-					particleSlots.add(new ParticleSlot(p));
+				player.unequip(selected.getContained());
+				selected.setEquipped(false);
 			}
 		}
 	}
@@ -138,10 +155,14 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			deleteButton.render(renderer.getBatch());
 			if(deleteClicked) renderer.getBatch().draw(deleteButton.getClickedSprite(), deleteButton.getX(), deleteButton.getY());
 			
-			equipButton.render(renderer.getBatch());
-			if(equipClicked) renderer.getBatch().draw(equipButton.getClickedSprite(), equipButton.getX(), equipButton.getY());
+			if(!selected.isEquipped()){
+				equipButton.render(renderer.getBatch());
+				if(equipClicked) renderer.getBatch().draw(equipButton.getClickedSprite(), equipButton.getX(), equipButton.getY());
+			}else{
+				unequipButton.render(renderer.getBatch());
+				if(unequipClicked) renderer.getBatch().draw(unequipButton.getClickedSprite(), unequipButton.getX(), unequipButton.getY());
+			}
 		}
-		
 		renderer.getBatch().end();
 	}
 
@@ -185,8 +206,11 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			}else if(deleteButton.getRect().contains(x, y)){
 				deleteClicked = true;
 				return true;
-			}else if(equipButton.getRect().contains(x, y)){
+			}else if(selected != null && !selected.isEquipped() && equipButton.getRect().contains(x, y)){
 				equipClicked = true;
+				return true;
+			}else if(selected != null && selected.isEquipped() && unequipButton.getRect().contains(x, y)){
+				unequipClicked = true;
 				return true;
 			}
 			

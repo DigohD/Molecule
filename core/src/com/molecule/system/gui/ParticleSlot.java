@@ -17,10 +17,12 @@ public class ParticleSlot{
 
 	private Particle contained;
 	private static Texture button = TextureLoader.textures.get("inventoryitem");
+	private static Texture buttonOn = TextureLoader.textures.get("inventoryitemon");
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 	
 	private Rectangle rect = new Rectangle();
 	private float scrollOffset;
+	private boolean isEquipped = false;
 	
 	public ParticleSlot(Particle contained){
 		this.contained = contained;
@@ -28,7 +30,10 @@ public class ParticleSlot{
 	}
 	
 	public void draw(Renderer renderer, float x, float y){
-		renderer.getBatch().draw(button, x, y);
+		if(isEquipped)
+			renderer.getBatch().draw(buttonOn, x, y);
+		else
+			renderer.getBatch().draw(button, x, y);
 		renderer.getBatch().draw(contained.getImg().getTexture(), x + 50, y + 50, 100, 100);
 		
 		nameFont.draw(renderer.getBatch(), contained.getName(), x + 280, y + 136);
@@ -45,7 +50,6 @@ public class ParticleSlot{
 			pm.drawMod(renderer, x, y + yOffset);
 			yOffset -= pm.getDrawHeight();
 		}
-		
 	}
 	
 	public Rectangle getRect() {
@@ -67,5 +71,15 @@ public class ParticleSlot{
 	public void setScrollOffset(float scrollOffset) {
 		this.scrollOffset = scrollOffset;
 	}
+
+	public boolean isEquipped() {
+		return isEquipped;
+	}
+
+	public void setEquipped(boolean isEquipped) {
+		this.isEquipped = isEquipped;
+	}
+	
+	
 	
 }
