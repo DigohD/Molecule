@@ -6,18 +6,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Camera {
 	
-	private static OrthographicCamera cam;
+	private static OrthographicCamera cam = new OrthographicCamera(Game.WIDTH, Game.WIDTH * (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()));;
 	private Vector2 diff = new Vector2(0,0);
 	private Vector2 pos = new Vector2(0,0);
 	private boolean dynamic;
 	
 	public Camera(boolean dynamic){
 		this.dynamic = dynamic;
-		float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
 		
-		cam = new OrthographicCamera(Game.WIDTH, Game.WIDTH * (h / w));
-	    cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		
+		if(dynamic)
+			cam.position.set(EntityManager.getPlayer().getPosition().x, EntityManager.getPlayer().getPosition().y, 0);
+		else
+			cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
 	    cam.update();
 	}
 	

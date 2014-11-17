@@ -2,12 +2,14 @@ package com.molecule.system.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
 import com.molecule.system.Camera;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
 import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
 import com.molecule.system.gui.Button;
+import com.molecule.system.util.TextureLoader;
 
 public class PauseState extends GameState implements InputProcessor{
 
@@ -15,6 +17,7 @@ public class PauseState extends GameState implements InputProcessor{
 	private Camera cam;
 	private int timer = 0;
 	
+	private Texture bg, bgalpha, shine;
 	private boolean pClicked = false, eClicked = false, click = false;
 
 	public PauseState(GameStateManager gsm) {
@@ -28,15 +31,18 @@ public class PauseState extends GameState implements InputProcessor{
 	public void init() {
 		cam = new Camera(false);
 		
-		play = new Button("playbutton", Game.WIDTH / 2 - (587/2), Game.HEIGHT / 2 + 100);
-		exit = new Button("exitbutton", Game.WIDTH / 2 - (587/2), (Game.HEIGHT / 2) - 180 + 100);
-		
+		play = new Button("buttonplay", 100, 570);
+		exit = new Button("buttonquit", 100, 330);
+	
+		bg = TextureLoader.textures.get("menubg");
+		bgalpha = TextureLoader.textures.get("menubgalpha");
+		shine = TextureLoader.textures.get("shine");
 	}
 
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(this);
-		Camera.getCam().position.set(Camera.getCam().viewportWidth / 2f, Camera.getCam().viewportHeight / 2f, 0);
+		Camera.getCam().position.set(Camera.getCamX(), Camera.getCamY(), 0);
 		if(pClicked || timer > 0 && !click){
 			click = true;
 			timer++;
@@ -62,6 +68,8 @@ public class PauseState extends GameState implements InputProcessor{
 		}
 	}
 
+	int shineTimer;
+	
 	@Override
 	public void render(Renderer renderer) {
 		Renderer.enableShader(Renderer.getBasicShader());
@@ -70,6 +78,14 @@ public class PauseState extends GameState implements InputProcessor{
 		renderer.getBatch().begin();
 		renderer.getBatch().setProjectionMatrix(Camera.getCam().combined);
 		Camera.getCam().update();   
+		
+		renderer.getBatch().draw(bg, 0, 0);
+		renderer.getBatch().draw(shine, -1000 + shineTimer, 0);
+		renderer.getBatch().draw(bgalpha, 0, 0);
+		
+		shineTimer += 12;
+		if(shineTimer > 3000)
+			shineTimer = 0;
 		
 		play.render(renderer.getBatch());
 		if(pClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
