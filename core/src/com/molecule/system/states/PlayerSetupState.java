@@ -15,18 +15,18 @@ import com.molecule.system.gui.Button;
 import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
-public class MenuState extends GameState implements InputProcessor{
+public class PlayerSetupState extends GameState implements InputProcessor{
 	
-	private Button play, options, exit;
+	private Button play, inventory, exit;
 	private Texture bg, bgalpha, shine, nucleus, particle, particleint;
 	private Camera cam;
 	private int timer = 0;
 	private int nucleusCX, nucleusCY;
 	private boolean soundPlayed = false;
 	
-	private boolean pClicked = false, eClicked = false, click = false;
+	private boolean playClicked = false, invClicked = false, exitClicked = false, click = false;
 
-	public MenuState(GameStateManager gsm) {
+	public PlayerSetupState(GameStateManager gsm) {
 		super(gsm);
 		init();
 	}
@@ -37,9 +37,9 @@ public class MenuState extends GameState implements InputProcessor{
 		
 		soundPlayed = false;
 		
-		play = new Button("buttonplay", 100, 570);
-		options = new Button("buttonoptions", 100, 330);
-		exit = new Button("buttonquit", 100, 90);
+		play = new Button("buttonstart", 100, 570);
+		inventory = new Button("buttoninventory", 100, 330);
+		exit = new Button("buttonback", 100, 90);
 	
 		bg = TextureLoader.textures.get("menubg");
 		bgalpha = TextureLoader.textures.get("menubgalpha");
@@ -48,59 +48,48 @@ public class MenuState extends GameState implements InputProcessor{
 		nucleus = TextureLoader.textures.get("menunucleus");
 		particle = TextureLoader.textures.get("menuparticle");
 		particleint = TextureLoader.textures.get("menuparticleint");
-		
-		SoundLoader.music.get("menum2").setLooping(true);
-		SoundLoader.music.get("menum2").play();
 	}
 
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(this);
 		Camera.getCam().position.set(Camera.getCam().viewportWidth / 2f, Camera.getCam().viewportHeight / 2f, 0);
-		if(pClicked || timer > 0 && !click){
+		if(playClicked || timer > 0 && !click){
 			click = true;
-			
-			if(!soundPlayed){
-				SoundLoader.sounds.get("buttonclick").play();
-				soundPlayed = true;
-			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
 			
 			timer++;
 			if(timer >= 30){
 				timer = 0;
-				pClicked = false;
+				playClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
 
-				gsm.push(new PlayerSetupState(gsm));
+				gsm.push(new PlayState(gsm));
 			}
 		}
 		
-		if(eClicked || timer > 0 && !click){
+		if(invClicked || timer > 0 && !click){
 			click = true;
-			
-			if(!soundPlayed){
-				SoundLoader.sounds.get("buttonclick").play();
-				soundPlayed = true;
-			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
 			
 			timer++;
 			if(timer >= 30){
 				timer = 0;
-				eClicked = false;
+				invClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
-				Gdx.app.exit();
+
+				gsm.push(new InventoryState(gsm));
+			}
+		}
+		
+		if(exitClicked || timer > 0 && !click){
+			click = true;
+			
+			timer++;
+			if(timer >= 30){
+				timer = 0;
+				exitClicked = false;
+				click = false;
+
+				gsm.pop();
 			}
 		}
 	}
@@ -136,12 +125,13 @@ public class MenuState extends GameState implements InputProcessor{
 		
 		
 		play.render(renderer.getBatch());
-		if(pClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
+		if(playClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
 		
-		options.render(renderer.getBatch());
+		inventory.render(renderer.getBatch());
+		if(invClicked) renderer.getBatch().draw(inventory.getClickedSprite(), inventory.getX(), inventory.getY());
 		
 		exit.render(renderer.getBatch());
-		if(eClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
+		if(exitClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
 		
 		renderer.getBatch().end();
 		Renderer.getBasicShader().end();
@@ -194,9 +184,11 @@ public class MenuState extends GameState implements InputProcessor{
 		float y = (Gdx.graphics.getHeight() - screenY) * ((float)Game.HEIGHT / Gdx.graphics.getHeight());
 		
 		if(play.getRect().contains(x, y))
-			pClicked = true;
+			playClicked = true;
+		if(inventory.getRect().contains(x, y))
+			invClicked = true;
 		if(exit.getRect().contains(x, y))
-			eClicked = true;
+			exitClicked = true;
 		
 		return true;
 	}

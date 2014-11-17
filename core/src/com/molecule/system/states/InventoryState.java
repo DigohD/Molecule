@@ -1,32 +1,30 @@
 package com.molecule.system.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.molecule.system.Camera;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Game;
 import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
-import com.molecule.system.Util;
 import com.molecule.system.gui.Button;
 import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
-public class MenuState extends GameState implements InputProcessor{
-	
-	private Button play, options, exit;
+public class InventoryState extends GameState implements InputProcessor{
+
+	private Button exts, ints, exit;
 	private Texture bg, bgalpha, shine, nucleus, particle, particleint;
 	private Camera cam;
 	private int timer = 0;
 	private int nucleusCX, nucleusCY;
 	private boolean soundPlayed = false;
 	
-	private boolean pClicked = false, eClicked = false, click = false;
+	private boolean exitClicked = false, intsClicked = false, extsClicked = false, click = false;
 
-	public MenuState(GameStateManager gsm) {
+	public InventoryState(GameStateManager gsm) {
 		super(gsm);
 		init();
 	}
@@ -35,74 +33,62 @@ public class MenuState extends GameState implements InputProcessor{
 	public void init(){
 		cam = new Camera(false);
 		
+		new EntityManager();
+		
 		soundPlayed = false;
 		
-		play = new Button("buttonplay", 100, 570);
-		options = new Button("buttonoptions", 100, 330);
-		exit = new Button("buttonquit", 100, 90);
+		exts = new Button("buttonext", 100, 570);
+		ints = new Button("buttonint", 100, 330);
+		exit = new Button("buttonback", 100, 90);
 	
-		bg = TextureLoader.textures.get("menubg");
-		bgalpha = TextureLoader.textures.get("menubgalpha");
-		shine = TextureLoader.textures.get("shine");
-		
 		nucleus = TextureLoader.textures.get("menunucleus");
 		particle = TextureLoader.textures.get("menuparticle");
 		particleint = TextureLoader.textures.get("menuparticleint");
 		
-		SoundLoader.music.get("menum2").setLooping(true);
-		SoundLoader.music.get("menum2").play();
+		bg = TextureLoader.textures.get("menubg");
+		bgalpha = TextureLoader.textures.get("menubgalpha");
+		shine = TextureLoader.textures.get("shine");
 	}
 
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(this);
 		Camera.getCam().position.set(Camera.getCam().viewportWidth / 2f, Camera.getCam().viewportHeight / 2f, 0);
-		if(pClicked || timer > 0 && !click){
+		if(exitClicked || timer > 0 && !click){
 			click = true;
-			
-			if(!soundPlayed){
-				SoundLoader.sounds.get("buttonclick").play();
-				soundPlayed = true;
-			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
-			
+
 			timer++;
 			if(timer >= 30){
 				timer = 0;
-				pClicked = false;
+				exitClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
-
-				gsm.push(new PlayerSetupState(gsm));
+				gsm.pop();
 			}
 		}
 		
-		if(eClicked || timer > 0 && !click){
+		if(extsClicked || timer > 0 && !click){
 			click = true;
-			
-			if(!soundPlayed){
-				SoundLoader.sounds.get("buttonclick").play();
-				soundPlayed = true;
-			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
-			
+
 			timer++;
 			if(timer >= 30){
 				timer = 0;
-				eClicked = false;
+				extsClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
-				Gdx.app.exit();
+				gsm.push(new InventoryManageState(gsm));
 			}
 		}
+		
+//		if(intsClicked || timer > 0 && !click){
+//			click = true;
+//
+//			timer++;
+//			if(timer >= 30){
+//				timer = 0;
+//				extsClicked = false;
+//				click = false;
+//				Gdx.app.exit();
+//			}
+//		}
 	}
 
 	int shineTimer;
@@ -135,13 +121,13 @@ public class MenuState extends GameState implements InputProcessor{
 		
 		
 		
-		play.render(renderer.getBatch());
-		if(pClicked) renderer.getBatch().draw(play.getClickedSprite(), play.getX(), play.getY());
+		exts.render(renderer.getBatch());
+		if(extsClicked) renderer.getBatch().draw(exts.getClickedSprite(), exts.getX(), exts.getY());
 		
-		options.render(renderer.getBatch());
+		ints.render(renderer.getBatch());
 		
 		exit.render(renderer.getBatch());
-		if(eClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
+		if(exitClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
 		
 		renderer.getBatch().end();
 		Renderer.getBasicShader().end();
@@ -193,17 +179,16 @@ public class MenuState extends GameState implements InputProcessor{
 		float x = (float)screenX * ((float)Game.WIDTH / Gdx.graphics.getWidth());
 		float y = (Gdx.graphics.getHeight() - screenY) * ((float)Game.HEIGHT / Gdx.graphics.getHeight());
 		
-		if(play.getRect().contains(x, y))
-			pClicked = true;
+		if(exts.getRect().contains(x, y))
+			extsClicked = true;
 		if(exit.getRect().contains(x, y))
-			eClicked = true;
+			exitClicked = true;
 		
 		return true;
 	}
 	
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		
 		return false;
 	}
 
@@ -224,5 +209,5 @@ public class MenuState extends GameState implements InputProcessor{
 	public boolean scrolled(int amount) {return false;}
 	public boolean keyUp(int keycode) {return false;}
 	public boolean keyTyped(char character) {return false;}
-
+	
 }

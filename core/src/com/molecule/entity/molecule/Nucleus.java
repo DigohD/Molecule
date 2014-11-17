@@ -160,6 +160,10 @@ public class Nucleus extends DynamicEntity{
 	public StatsSheet getStats() {
 		return stats;
 	}
+
+	public ArrayList<Particle> getChildren() {
+		return children;
+	}
 	
 	
 }

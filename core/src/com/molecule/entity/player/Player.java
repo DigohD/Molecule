@@ -1,5 +1,9 @@
 package com.molecule.entity.player;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,6 +15,8 @@ import com.molecule.entity.Tickable;
 import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
+import com.molecule.entity.particle.ExternalParticle;
+import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.Camera;
@@ -27,12 +33,20 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 	private boolean update;
 	private Sprite healthBar = new Sprite(TextureLoader.textures.get("healthbar"));
 	private Sprite healthBarFrame = new Sprite(TextureLoader.textures.get("healthbarframe"));
+	private BitmapFont healthFont;
+	
+	private ArrayList<Particle> inventory = new ArrayList<Particle>();
 	
 	public Player(Vector2 position){
 		super(position);
 		nucleus = new Nucleus(Type.PLAYER);
 		velocity = new Vector2(0,0);
 		targetVel = new Vector2(0,0);
+		
+		healthFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
+		
+		for(int i = 0; i < 9; i++)
+			inventory.add(new ExternalParticle(nucleus));
 		
 		EntityManager.addEntity(this);
 	}
@@ -107,7 +121,9 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		float percent = nucleus.getStats().getStat(StatID.HP_NOW).getTotal() / nucleus.getStats().getStat(StatID.HP_MAX).getTotal();
+		float hp_now = nucleus.getStats().getStat(StatID.HP_NOW).getTotal();
+		float hp_max = nucleus.getStats().getStat(StatID.HP_MAX).getTotal();
+		float percent = hp_now / hp_max;
 		
 		if(percent < 0.275f){
 			tickAlert();
@@ -120,6 +136,7 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		float newG = 0.0f + (percent * 0.8f);
 		
 		healthBar.setColor(newR, newG, 0.0f, 1f);
+		healthFont.setColor(newR, newG, 0, 1);
 		
 		healthBar.setRegion(0, 0, (int) (400 * percent), 100);
 		healthBar.setBounds(50, 0, (int) (400 * percent), 100);
@@ -127,6 +144,13 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		healthBar.setPosition(120 + (Camera.getCamX() - Game.WIDTH/2), 920 + (Camera.getCamY() - Game.HEIGHT/2));
 		healthBarFrame.setScale(1.5f);
 		healthBarFrame.setPosition(120 + (Camera.getCamX() - Game.WIDTH/2), 920 + (Camera.getCamY() - Game.HEIGHT/2));
+		
+		String hp_now_S = String.format("%.1f", hp_now);
+		String hp_max_S = String.format("%.1f", hp_max);
+		
+		healthFont.setScale(1f + alertScale);
+		healthFont.draw(batch, hp_now_S + "/" + hp_max_S, 
+				340  + (Camera.getCamX() - Game.WIDTH/2), 940 + (Camera.getCamY() - Game.HEIGHT/2));
 		
 		healthBarFrame.draw(batch);
 		healthBar.draw(batch);
@@ -136,5 +160,22 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		alertTimer += 0.2f;
 		alertScale = (float) Math.sin(alertTimer) / 5f;
 	}
+	
+	public ArrayList<Particle> getEquippedParticles(){
+		return nucleus.getChildren();
+	}
+	
+	public void addToInventory(Particle p){
+		inventory.add(p);
+	}
+	
+	public void removeFromInventory(Particle p){
+		inventory.remove(p);
+	}
+
+	public ArrayList<Particle> getInventory() {
+		return inventory;
+	}
+	
 	
 }

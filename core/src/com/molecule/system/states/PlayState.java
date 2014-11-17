@@ -35,7 +35,7 @@ public class PlayState extends GameState{
 	public void init() {
 		Gdx.input.setCatchBackKey(true);
 		new GranuleBuffer();
-		eManager = new EntityManager();
+		
 		bgS = new Sprite(TextureLoader.textures.get("bg"));
 		bgS.scale(4);
 		bgS.setScale(10);

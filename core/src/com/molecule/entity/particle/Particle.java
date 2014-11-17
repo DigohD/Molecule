@@ -11,6 +11,7 @@ import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.defensive.Plasmatron;
+import com.molecule.system.Util;
 
 public abstract class Particle implements Tickable{
 
@@ -31,8 +32,11 @@ public abstract class Particle implements Tickable{
 	
 	protected ParticleTrail trail;
 	
+	protected String name;
+	
 	public Particle(Nucleus parent){
 		this.parent = parent;
+		name = "Particle " + Util.rnd.nextInt(999);
 		
 		centerV = new Vector2(0, 0);
 		tint = new Color(1, 1, 1, 1);
@@ -79,6 +83,14 @@ public abstract class Particle implements Tickable{
 	}
 
 	public abstract void draw(SpriteBatch batch);
+
+	public Sprite getImg() {
+		return img;
+	}
+
+	public String getName() {
+		return name;
+	}
 	
 	
 }
