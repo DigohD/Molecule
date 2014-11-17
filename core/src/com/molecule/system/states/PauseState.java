@@ -42,7 +42,7 @@ public class PauseState extends GameState implements InputProcessor{
 	@Override
 	public void tick(float dt) {
 		Gdx.input.setInputProcessor(this);
-		Camera.getCam().position.set(Camera.getCam().viewportWidth / 2f, Camera.getCam().viewportHeight / 2f, 0);
+		Camera.getCam().position.set(Camera.getCamX(), Camera.getCamY(), 0);
 		if(pClicked || timer > 0 && !click){
 			click = true;
 			timer++;
