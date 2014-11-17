@@ -5,6 +5,7 @@ import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.ParticleMod;
 import com.molecule.entity.stats.StatMod;
 import com.molecule.entity.stats.StatsSheet.StatID;
+import com.molecule.system.Renderer;
 import com.molecule.system.util.StatHashBuffer;
 
 public class Plasmatron extends ParticleMod{
@@ -31,6 +32,21 @@ public class Plasmatron extends ParticleMod{
 	@Override
 	public void tick(float dt) {
 		
+	}
+
+	@Override
+	public void drawMod(Renderer renderer, float x, float y) {
+		
+	}
+
+	@Override
+	public int getDrawHeight() {
+		return 0;
+	}
+
+	@Override
+	public String getName() {
+		return "Plasmatron";
 	}
 
 }

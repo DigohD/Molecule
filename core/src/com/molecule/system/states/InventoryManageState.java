@@ -85,7 +85,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		}
 		
 		if(selected != null)
-			selected.drawMods(renderer, 1020, 930);
+			selected.drawMods(renderer, 1020, 920);
 		
 		renderer.getBatch().draw(bg, 0, 0);
 		

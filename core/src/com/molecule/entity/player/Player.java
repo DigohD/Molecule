@@ -18,6 +18,7 @@ import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.offensive.Projectile;
+import com.molecule.entity.particle.offensive.QuarkGun;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.Camera;
 import com.molecule.system.EntityManager;
@@ -45,8 +46,11 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		
 		healthFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 		
-		for(int i = 0; i < 9; i++)
-			inventory.add(new ExternalParticle(nucleus));
+		for(int i = 0; i < 9; i++){
+			ExternalParticle p = new ExternalParticle(nucleus);
+			p.addParticleMod(new QuarkGun(p));
+			inventory.add(p);
+		}
 		
 		EntityManager.addEntity(this);
 	}

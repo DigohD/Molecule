@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.ParticleMod;
 import com.molecule.entity.player.Player;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Renderer;
@@ -35,6 +36,9 @@ public class ParticleSlot{
 	}
 
 	public void drawMods(Renderer renderer, float x, float y){
+		for(ParticleMod pm : contained.getMods()){
+			pm.drawMod(renderer, x, y);
+		}
 		
 	}
 	

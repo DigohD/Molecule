@@ -91,6 +91,10 @@ public abstract class Particle implements Tickable{
 	public String getName() {
 		return name;
 	}
+
+	public ArrayList<ParticleMod> getMods() {
+		return mods;
+	}
 	
 	
 }
