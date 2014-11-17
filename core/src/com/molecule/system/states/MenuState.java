@@ -66,18 +66,12 @@ public class MenuState extends GameState implements InputProcessor{
 				SoundLoader.sounds.get("buttonclick").play();
 				soundPlayed = true;
 			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
 			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				pClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
 
 				gsm.push(new PlayerSetupState(gsm));
 			}
@@ -90,18 +84,13 @@ public class MenuState extends GameState implements InputProcessor{
 				SoundLoader.sounds.get("buttonclick").play();
 				soundPlayed = true;
 			}
-			if(1 - ((float) timer / 18) < 0)
-				SoundLoader.music.get("menum2").setVolume(0);
-			else
-				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
 			
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				eClicked = false;
 				click = false;
-				SoundLoader.music.get("menum2").stop();
-				SoundLoader.music.get("menum2").dispose();
+				
 				Gdx.app.exit();
 			}
 		}

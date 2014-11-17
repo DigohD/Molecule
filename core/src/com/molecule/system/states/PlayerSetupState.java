@@ -57,12 +57,20 @@ public class PlayerSetupState extends GameState implements InputProcessor{
 		if(playClicked || timer > 0 && !click){
 			click = true;
 			
+			if(1 - ((float) timer / 18) < 0)
+				SoundLoader.music.get("menum2").setVolume(0);
+			else
+				SoundLoader.music.get("menum2").setVolume(1 - ((float) timer / 18));
+			
 			timer++;
 			if(timer >= 30){
 				timer = 0;
 				playClicked = false;
 				click = false;
 
+				SoundLoader.music.get("menum2").stop();
+				SoundLoader.music.get("menum2").dispose();
+				
 				gsm.push(new PlayState(gsm));
 			}
 		}

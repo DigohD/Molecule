@@ -97,7 +97,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			click = true;
 
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				backClicked = false;
 				click = false;
@@ -108,7 +108,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			click = true;
 
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				deleteClicked = false;
 				click = false;
@@ -129,7 +129,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			click = true;
 
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				equipClicked = false;
 				click = false;
@@ -142,7 +142,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 			click = true;
 
 			timer++;
-			if(timer >= 30){
+			if(timer >= 15){
 				timer = 0;
 				unequipClicked = false;
 				click = false;
