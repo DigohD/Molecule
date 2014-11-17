@@ -67,7 +67,7 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		for(int i = 0; i < 2; i++){
 			InternalParticle p = new InternalParticle(nucleus);
 			p.addParticleMod(new Plasmatron(p, StatID.HP_MAX, 10));
-			p.addParticleMod(new Plasmatron(p, StatID.HP_REGEN, 0.25f));
+			p.addParticleMod(new Plasmatron(p, StatID.HP_REGEN, 0.01f));
 			inventory.add(p);
 		}
 		

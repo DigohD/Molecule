@@ -43,7 +43,11 @@ public class Plasmatron extends ParticleMod{
 		
 		fontLight.setScale(1.1f);
 		
-		String statS = String.format("%.1f", mod.getAmount());
+		String statS = null;
+		if(mod.getAffectedStat() == StatID.HP_REGEN)
+			statS = String.format("%.1f", mod.getAmount() * 60);
+		else
+			statS = String.format("%.1f", mod.getAmount());
 		
 		fontLight.draw(renderer.getBatch(), StatsSheet.getStatString(mod.getAffectedStat()), x, y - 60);
 		fontLight.draw(renderer.getBatch(), statS, x + 500, y - 60);
