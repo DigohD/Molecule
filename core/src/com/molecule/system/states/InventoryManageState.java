@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.molecule.entity.particle.ExternalParticle;
+import com.molecule.entity.particle.InternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.player.Player;
 import com.molecule.system.Camera;
@@ -19,6 +21,10 @@ import com.molecule.system.util.TextureLoader;
 
 public class InventoryManageState extends GameState implements InputProcessor{
 
+	public enum invType{
+		EXTERNALS, INTERNALS
+	}
+	
 	private Texture bg;
 	private Button back, deleteButton, equipButton, unequipButton;
 	private Player player = EntityManager.getPlayer();
@@ -28,13 +34,15 @@ public class InventoryManageState extends GameState implements InputProcessor{
 	private float scrollOffset;
 	private boolean click = false, backClicked = false, deleteClicked = false, equipClicked = false, unequipClicked;
 	
-	
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 	
 	private ParticleSlot selected;
 
-	public InventoryManageState(GameStateManager gsm) {
+	private invType type;
+	
+	public InventoryManageState(GameStateManager gsm, invType type) {
 		super(gsm);
+		this.type = type;
 		init();
 	}
 
@@ -47,14 +55,34 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		equipButton = new Button("equip", "equipp", 1250, 30);
 		unequipButton = new Button("unequip", "unequipp", 1250, 30);
 		
-		for(Particle p : player.getEquippedParticles()){
-			ParticleSlot eq = new ParticleSlot(p);
-			eq.setEquipped(true);
-			particleSlots.add(eq);
+		particleSlots = new ArrayList<ParticleSlot>();
+		
+		if(type == invType.EXTERNALS){
+			for(Particle p : player.getEquippedParticles()){
+				if(p instanceof ExternalParticle){
+					ParticleSlot eq = new ParticleSlot(p);
+					eq.setEquipped(true);
+					particleSlots.add(eq);
+				}
+			}
+			
+			for(Particle p : player.getInventory())
+				if(p instanceof ExternalParticle)
+					particleSlots.add(new ParticleSlot(p));
+		}else if(type == invType.INTERNALS){
+			for(Particle p : player.getEquippedParticles()){
+				if(p instanceof InternalParticle){
+					ParticleSlot eq = new ParticleSlot(p);
+					eq.setEquipped(true);
+					particleSlots.add(eq);
+				}
+			}
+			
+			for(Particle p : player.getInventory())
+				if(p instanceof InternalParticle)
+					particleSlots.add(new ParticleSlot(p));
 		}
 		
-		for(Particle p : player.getInventory())
-			particleSlots.add(new ParticleSlot(p));
 		
 		nameFont.setScale(1.8f);
 	}
@@ -76,8 +104,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				gsm.pop();
 			}
 		}
-		
-		if(deleteClicked || timer > 0 && !click){
+		else if(deleteClicked || timer > 0 && !click){
 			click = true;
 
 			timer++;
@@ -98,8 +125,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				particleSlots.remove(toRemove);	
 			}
 		}
-		
-		if(equipClicked || timer > 0 && !click){
+		else if(equipClicked || timer > 0 && !click){
 			click = true;
 
 			timer++;
@@ -112,8 +138,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				selected.setEquipped(true);
 			}
 		}
-		
-		if(unequipClicked || timer > 0 && !click){
+		else if(unequipClicked || timer > 0 && !click){
 			click = true;
 
 			timer++;

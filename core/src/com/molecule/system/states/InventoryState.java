@@ -10,6 +10,7 @@ import com.molecule.system.Game;
 import com.molecule.system.GameStateManager;
 import com.molecule.system.Renderer;
 import com.molecule.system.gui.Button;
+import com.molecule.system.states.InventoryManageState.invType;
 import com.molecule.system.util.SoundLoader;
 import com.molecule.system.util.TextureLoader;
 
@@ -72,21 +73,23 @@ public class InventoryState extends GameState implements InputProcessor{
 				timer = 0;
 				extsClicked = false;
 				click = false;
-				gsm.push(new InventoryManageState(gsm));
+				
+				gsm.push(new InventoryManageState(gsm, invType.EXTERNALS));
 			}
 		}
 		
-//		if(intsClicked || timer > 0 && !click){
-//			click = true;
-//
-//			timer++;
-//			if(timer >= 30){
-//				timer = 0;
-//				extsClicked = false;
-//				click = false;
-//				Gdx.app.exit();
-//			}
-//		}
+		if(intsClicked || timer > 0 && !click){
+			click = true;
+
+			timer++;
+			if(timer >= 30){
+				timer = 0;
+				intsClicked = false;
+				click = false;
+				
+				gsm.push(new InventoryManageState(gsm, invType.INTERNALS));
+			}
+		}
 	}
 
 	int shineTimer;
@@ -123,6 +126,7 @@ public class InventoryState extends GameState implements InputProcessor{
 		if(extsClicked) renderer.getBatch().draw(exts.getClickedSprite(), exts.getX(), exts.getY());
 		
 		ints.render(renderer.getBatch());
+		if(intsClicked) renderer.getBatch().draw(ints.getClickedSprite(), ints.getX(), ints.getY());
 		
 		exit.render(renderer.getBatch());
 		if(exitClicked) renderer.getBatch().draw(exit.getClickedSprite(), exit.getX(), exit.getY());
@@ -179,6 +183,8 @@ public class InventoryState extends GameState implements InputProcessor{
 		
 		if(exts.getRect().contains(x, y))
 			extsClicked = true;
+		if(ints.getRect().contains(x, y))
+			intsClicked = true;
 		if(exit.getRect().contains(x, y))
 			exitClicked = true;
 		

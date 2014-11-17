@@ -17,6 +17,7 @@ import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.ExternalParticle;
+import com.molecule.entity.particle.InternalParticle;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.defensive.Plasmatron;
 import com.molecule.entity.particle.offensive.Projectile;
@@ -57,11 +58,15 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		
 		healthFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 		
-		for(int i = 0; i < 9; i++){
+		for(int i = 0; i < 2; i++){
 			ExternalParticle p = new ExternalParticle(nucleus);
-//			p.addParticleMod(new QuarkGun(p));
-			p.addParticleMod(new Plasmatron(p, StatID.HP_MAX, 10));
 			p.addParticleMod(new QuarkGun(p));
+			inventory.add(p);
+		}
+		
+		for(int i = 0; i < 2; i++){
+			InternalParticle p = new InternalParticle(nucleus);
+			p.addParticleMod(new Plasmatron(p, StatID.HP_MAX, 10));
 			p.addParticleMod(new Plasmatron(p, StatID.HP_REGEN, 0.25f));
 			inventory.add(p);
 		}
@@ -207,11 +212,13 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 	
 	public void equip(Particle p){
 		nucleus.addParticle(p);
+		inventory.remove(p);
 	}
 	
 	public void unequip(Particle p){
 		if(nucleus.getChildren().contains(p))
 			nucleus.removeParticle(p);
+		inventory.add(p);
 	}
 	
 	public void addToInventory(Particle p){
