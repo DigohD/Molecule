@@ -10,6 +10,7 @@ public abstract class ParticleMod  implements Tickable{
 	protected Particle parent;
 	protected float drawHeight;
 	protected static BitmapFont font = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
+	protected static BitmapFont fontLight = new BitmapFont(Gdx.files.internal("data/fontlight.fnt"),false);
 	
 	public ParticleMod(Particle parent){
 		this.parent = parent;

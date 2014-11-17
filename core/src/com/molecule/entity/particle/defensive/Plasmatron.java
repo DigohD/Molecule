@@ -41,21 +41,27 @@ public class Plasmatron extends ParticleMod{
 		
 		font.draw(renderer.getBatch(), getName(), x, y);
 		
-		font.setScale(1.1f);
+		fontLight.setScale(1.1f);
 		
 		String statS = String.format("%.1f", mod.getAmount());
 		
-		font.draw(renderer.getBatch(), StatsSheet.getStatString(mod.getAffectedStat()), x, y - 100);
-		font.draw(renderer.getBatch(), statS, x + 300, y - 100);
+		fontLight.draw(renderer.getBatch(), StatsSheet.getStatString(mod.getAffectedStat()), x, y - 60);
+		fontLight.draw(renderer.getBatch(), statS, x + 500, y - 60);
 	}
 
 	@Override
 	public int getDrawHeight() {
-		return 200;
+		return 160;
 	}
 
 	@Override
 	public String getName() {
+		switch(mod.getAffectedStat()){
+			case HP_MAX:
+				return "Solidron";
+			case HP_REGEN:
+				return "Repatron";
+		}
 		return "Plasmatron";
 	}
 

@@ -18,6 +18,7 @@ import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.ExternalParticle;
 import com.molecule.entity.particle.Particle;
+import com.molecule.entity.particle.defensive.Plasmatron;
 import com.molecule.entity.particle.offensive.Projectile;
 import com.molecule.entity.particle.offensive.QuarkGun;
 import com.molecule.entity.stats.StatsSheet.StatID;
@@ -58,7 +59,10 @@ public class Player extends Entity implements Tickable, Collideable, Renderable{
 		
 		for(int i = 0; i < 9; i++){
 			ExternalParticle p = new ExternalParticle(nucleus);
+//			p.addParticleMod(new QuarkGun(p));
+			p.addParticleMod(new Plasmatron(p, StatID.HP_MAX, 10));
 			p.addParticleMod(new QuarkGun(p));
+			p.addParticleMod(new Plasmatron(p, StatID.HP_REGEN, 0.25f));
 			inventory.add(p);
 		}
 		

@@ -33,8 +33,6 @@ public class InventoryState extends GameState implements InputProcessor{
 	public void init(){
 		cam = new Camera(false);
 		
-		new EntityManager();
-		
 		soundPlayed = false;
 		
 		exts = new Button("buttonext", 100, 570);

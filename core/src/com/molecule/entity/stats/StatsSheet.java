@@ -47,7 +47,7 @@ public class StatsSheet {
 			case LEVEL:
 				return "Level";
 			case HP_MAX:
-				return "HP";
+				return "Max HP";
 			case HP_NOW:
 				return "Current HP";
 			case HP_REGEN:

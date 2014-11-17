@@ -85,7 +85,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		}
 		
 		if(selected != null)
-			selected.drawMods(renderer, 1020, 920);
+			selected.drawMods(renderer, 1020, 900);
 		
 		renderer.getBatch().draw(bg, 0, 0);
 		
@@ -147,6 +147,7 @@ public class InventoryManageState extends GameState implements InputProcessor{
 				if(ps.getRect().contains(x, y)){
 					System.out.println(ps.getRect().toString() + " CONTAINS " + x + " : " + y);
 					selected = ps;
+					selected.setScrollOffset(0);
 				}
 			}	
 		}
@@ -164,13 +165,18 @@ public class InventoryManageState extends GameState implements InputProcessor{
 		float dX = x - prevX;
 		float dY = y - prevY;
 		
-		if (dY > 100 || dY < -100) {
+		if (dY > 75 || dY < -75) {
 			prevY = y;
 			return true;
 		}
 		
-		prevY = y;
-		scrollOffset += dY;
+		if(x < Game.WIDTH / 2){
+			prevY = y;
+			scrollOffset += dY;
+		}else if(x > Game.WIDTH / 2 && selected != null){
+			prevY = y;
+			selected.setScrollOffset(selected.getScrollOffset() + dY);
+		}
 		
 		return false;
 	}

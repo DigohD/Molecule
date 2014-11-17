@@ -33,6 +33,8 @@ public class MenuState extends GameState implements InputProcessor{
 
 	@Override
 	public void init(){
+		new EntityManager();
+		
 		cam = new Camera(false);
 		
 		soundPlayed = false;

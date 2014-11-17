@@ -20,6 +20,7 @@ public class ParticleSlot{
 	private static BitmapFont nameFont = new BitmapFont(Gdx.files.internal("data/font.fnt"),false);
 	
 	private Rectangle rect = new Rectangle();
+	private float scrollOffset;
 	
 	public ParticleSlot(Particle contained){
 		this.contained = contained;
@@ -36,8 +37,13 @@ public class ParticleSlot{
 	}
 
 	public void drawMods(Renderer renderer, float x, float y){
+		if(this.scrollOffset < 0)
+			scrollOffset = 0;
+		int yOffset = (int) (0 + scrollOffset);
+		
 		for(ParticleMod pm : contained.getMods()){
-			pm.drawMod(renderer, x, y);
+			pm.drawMod(renderer, x, y + yOffset);
+			yOffset -= pm.getDrawHeight();
 		}
 		
 	}
@@ -53,7 +59,13 @@ public class ParticleSlot{
 	public void setContained(Particle contained) {
 		this.contained = contained;
 	}
-	
-	
+
+	public float getScrollOffset() {
+		return scrollOffset;
+	}
+
+	public void setScrollOffset(float scrollOffset) {
+		this.scrollOffset = scrollOffset;
+	}
 	
 }

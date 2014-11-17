@@ -57,29 +57,29 @@ public class QuarkGun extends ParticleMod{
 		
 		font.draw(renderer.getBatch(), getName(), x, y);
 		
-		font.setScale(1.1f);
+		fontLight.setScale(1.1f);
 		
 		range = 8;
 		damage = 1.5f;
 		
 		String CooldownS = String.format("%.1f", ((float) CD) / 60);
 		
-		font.draw(renderer.getBatch(), "Cooldown: ", x, y - 100);
-		font.draw(renderer.getBatch(), CooldownS + "s", x + 300, y - 100);
+		fontLight.draw(renderer.getBatch(), "Cooldown: ", x, y - 60);
+		fontLight.draw(renderer.getBatch(), CooldownS + "s", x + 500, y - 60);
 		
-		font.draw(renderer.getBatch(), "Damage: ", x, y - 160);
-		font.draw(renderer.getBatch(), 1.5f + "", x + 300, y - 160);
+		fontLight.draw(renderer.getBatch(), "Damage: ", x, y - 120);
+		fontLight.draw(renderer.getBatch(), 1.5f + "", x + 500, y - 120);
 		
-		font.draw(renderer.getBatch(), "Range: ", x, y - 220);
-		font.draw(renderer.getBatch(), range * 100 + "", x + 300, y - 220);
+		fontLight.draw(renderer.getBatch(), "Range: ", x, y - 180);
+		fontLight.draw(renderer.getBatch(), range * 100 + "", x + 500, y - 180);
 		
-		font.draw(renderer.getBatch(), "Proj. Speed: ", x, y - 280);
-		font.draw(renderer.getBatch(), 100 + "", x + 300, y - 280);
+		fontLight.draw(renderer.getBatch(), "Proj. Speed: ", x, y - 240);
+		fontLight.draw(renderer.getBatch(), 100 + "", x + 500, y - 240);
 	}
 
 	@Override
 	public int getDrawHeight() {
-		return 380;
+		return 340;
 	}
 
 	@Override
