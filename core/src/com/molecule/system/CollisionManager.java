@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.molecule.entity.enemy.Enemy;
-import com.molecule.entity.particle.offensive.Projectile;
+import com.molecule.entity.particle.offensive.gun.Projectile;
 import com.molecule.entity.player.Player;
 
 public class CollisionManager {

@@ -1,20 +1,13 @@
 package com.molecule.entity.particle;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
-import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
-
-
 import com.molecule.system.Renderer;
 import com.molecule.system.Util;
 
@@ -24,8 +17,12 @@ public class ExternalParticle extends Particle{
 	public ExternalParticle(Nucleus parent){
 		super(parent);
 		
-		img = new Sprite(TextureLoader.textures.get("particle"));
+		img = new Sprite(TextureLoader.textures.get("particle" + (Util.rnd.nextInt(4) + 1)));
 		
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
 		
 		trail = new ParticleTrail(this, 1, 20);
 		
@@ -36,7 +33,12 @@ public class ExternalParticle extends Particle{
 	public ExternalParticle(Nucleus parent, float angleOffset){
 		super(parent);
 		
-		img = new Sprite(TextureLoader.textures.get("particle"));
+		img = new Sprite(TextureLoader.textures.get("particle" + (Util.rnd.nextInt(4) + 1)));
+		
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
 		
 		trail = new ParticleTrail(this, 1, 20);
 		
@@ -49,7 +51,12 @@ public class ExternalParticle extends Particle{
 	public ExternalParticle(Nucleus parent, float angleOffset, float sineOffset){
 		super(parent);
 		
-		img = new Sprite(TextureLoader.textures.get("particle"));
+		img = new Sprite(TextureLoader.textures.get("particle" + (Util.rnd.nextInt(4) + 1)));
+		
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1f);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
 		
 		trail = new ParticleTrail(this, 1, 20);
 		
@@ -58,13 +65,10 @@ public class ExternalParticle extends Particle{
 		
 		this.angleOffset = angleOffset;
 		this.sineOffset = sineOffset;
-		
-		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch){
-
 		float x = centerX - drawOffsetX;
 		float y = centerY - drawOffsetY;
 		
@@ -87,6 +91,8 @@ public class ExternalParticle extends Particle{
 		
 		sineTime += 0.1f;
 		
+		img.setRotation(sineTime * 30);
+		
 		if(boostStacks <= 0 && Util.rnd.nextInt(400) == 0)
 			boostStacks = Util.rnd.nextInt(25) + 75;
 		else if(boostStacks > 0){
@@ -94,6 +100,8 @@ public class ExternalParticle extends Particle{
 			sineTime += 0.1f;
 			boostStacks--;
 		}
+		
+		GranuleBuffer.getGranule().spawn(30, "path", centerX - 1, centerY - 1, tint.r, tint.g, tint.b);
 		
 		centerX = parent.getCenterX() + sineOffsetX;
 		centerY = parent.getCenterY() + sineOffsetY;

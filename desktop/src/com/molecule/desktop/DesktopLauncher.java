@@ -11,5 +11,4 @@ public class DesktopLauncher {
 		config.a = 8;
 		new LwjglApplication(new Game(), config);
 	}
-	
 }

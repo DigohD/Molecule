@@ -25,6 +25,7 @@ public class Granule extends DynamicEntity{
 	public void tick(float dt) {
 		if(lifetime <= 0){
 			live = false;
+			sprite.setColor(1, 1, 1, 1);
 		}
 		lifetime--;
 		posX += vX;
@@ -48,6 +49,22 @@ public class Granule extends DynamicEntity{
 	public void spawn(int lifetime, String imageName, float posX, float posY){
 		sprite.setRegion(TextureLoader.textures.get(imageName));
 		sprite.setSize(TextureLoader.textures.get(imageName).getWidth(), TextureLoader.textures.get(imageName).getHeight());
+		this.lifetime = lifetime;
+		live = true;
+		
+		this.posX = posX;
+		this.posY = posY;
+		
+		vX = 0;
+		vY = 0;
+		
+		EntityManager.addEntity(this);
+	}
+	
+	public void spawn(int lifetime, String imageName, float posX, float posY, float r, float g, float b){
+		sprite.setRegion(TextureLoader.textures.get(imageName));
+		sprite.setSize(TextureLoader.textures.get(imageName).getWidth(), TextureLoader.textures.get(imageName).getHeight());
+		sprite.setColor(r, g, b, 1);
 		this.lifetime = lifetime;
 		live = true;
 		

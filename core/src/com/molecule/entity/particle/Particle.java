@@ -41,7 +41,7 @@ public abstract class Particle implements Tickable{
 		name = "Particle " + Util.rnd.nextInt(999);
 		
 		centerV = new Vector2(0, 0);
-		tint = new Color(1, 1, 1, 1);
+
 		color = new Vector3(1,1,1);
 	}
 	
@@ -100,6 +100,10 @@ public abstract class Particle implements Tickable{
 
 	public ArrayList<ParticleMod> getMods() {
 		return mods;
+	}
+
+	public Color getColor() {
+		return tint;
 	}
 	
 	

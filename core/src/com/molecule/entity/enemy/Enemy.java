@@ -9,8 +9,8 @@ import com.molecule.entity.granule.emitter.Emitter;
 import com.molecule.entity.molecule.Nucleus;
 import com.molecule.entity.molecule.Nucleus.Type;
 import com.molecule.entity.particle.ExternalParticle;
-import com.molecule.entity.particle.offensive.Projectile;
-import com.molecule.entity.particle.offensive.QuarkGun;
+import com.molecule.entity.particle.offensive.gun.Projectile;
+import com.molecule.entity.particle.offensive.gun.QuarkGun;
 import com.molecule.entity.stats.StatsSheet.StatID;
 import com.molecule.system.EntityManager;
 import com.molecule.system.Util;
@@ -27,13 +27,6 @@ public class Enemy extends Entity implements Tickable, Collideable{
 		
 		ExternalParticle p = new ExternalParticle(nucleus);
 		p.addParticleMod(new QuarkGun(p));
-		p.setTint(1f, 0.1f, 0.1f, 1f);
-		nucleus.addParticle(p);
-		
-		p = new ExternalParticle(nucleus);
-		p.setTint(1f, 0.1f, 0.1f, 1f);
-		nucleus.addParticle(p);
-		p = new ExternalParticle(nucleus);
 		p.setTint(1f, 0.1f, 0.1f, 1f);
 		nucleus.addParticle(p);
 		

@@ -1,4 +1,4 @@
-package com.molecule.entity.particle.offensive;
+package com.molecule.entity.particle.offensive.gun;
 
 import com.badlogic.gdx.math.Vector2;
 import com.molecule.entity.granule.emitter.Emitter;
@@ -12,14 +12,11 @@ import com.molecule.system.util.EnemyLogic;
 import com.molecule.system.util.PlayerLogic;
 import com.molecule.system.util.SoundLoader;
 
-public class QuarkGun extends ParticleMod{
-	
-	private int CD, CDTimer, range;
-	private float damage, lifetime;
+public class QuarkGun extends Gun{
 	
 	private class Quark extends Projectile{
-		public Quark(Vector2 pos, Vector2 v){
-			super(pos, v, "quark", 100, 1.5f, parent.getOwnerType());
+		public Quark(Vector2 pos, Vector2 v, Gun source){
+			super(pos, v, "quark", source.getLifetime(), source.getDamage(), parent.getOwnerType());
 			EntityManager.addEntity(this);
 		}
 	}
@@ -30,25 +27,7 @@ public class QuarkGun extends ParticleMod{
 		CDTimer = 0;
 		range = 8;
 		damage = 1.5f;
-	}
-
-	@Override
-	public void tick(float dt) {
-		if(Util.rnd.nextInt(10) == 0)
-			return;
-		if(CDTimer >= CD){
-			if(parent.getOwnerType() == Type.ENEMY)
-				new Quark(parent.getCenter(), EnemyLogic.getPlayerDir(parent.getCenter()).nor().scl(range));
-			if(parent.getOwnerType() == Type.PLAYER){
-				new Quark(parent.getCenter(), PlayerLogic.getEnemyDir(parent.getCenter(), PlayerLogic.findNearestEnemy(parent.getCenter())).nor().scl(range));
-			}
-			Emitter emitter = new Emitter(parent.getCenter(), 10, 3, 15, "quark");
-			emitter.setSpreadRadial(new Vector2(1, 0));
-			emitter.setRandomness(4f);
-			CDTimer = -1;
-			SoundLoader.sounds.get("quarkgun").play();
-		}
-		CDTimer++;
+		lifetime = 80;
 	}
 
 	@Override
@@ -71,7 +50,7 @@ public class QuarkGun extends ParticleMod{
 		fontLight.draw(renderer.getBatch(), 1.5f + "", x + 500, y - 120);
 		
 		fontLight.draw(renderer.getBatch(), "Range: ", x, y - 180);
-		fontLight.draw(renderer.getBatch(), range * 100 + "", x + 500, y - 180);
+		fontLight.draw(renderer.getBatch(), range * lifetime + "", x + 500, y - 180);
 		
 		fontLight.draw(renderer.getBatch(), "Proj. Speed: ", x, y - 240);
 		fontLight.draw(renderer.getBatch(), 100 + "", x + 500, y - 240);
@@ -85,6 +64,28 @@ public class QuarkGun extends ParticleMod{
 	@Override
 	public String getName() {
 		return "Quark Gun - Single Shot";
+	}
+
+	@Override
+	public void playerFire() {
+		new Quark(parent.getCenter(), PlayerLogic.getEnemyDir(parent.getCenter(), PlayerLogic.findNearestEnemy(parent.getCenter())).nor().scl(range), this);
+	}
+
+	@Override
+	public void enemyFire() {
+		new Quark(parent.getCenter(), EnemyLogic.getPlayerDir(parent.getCenter()).nor().scl(range), this);
+	}
+
+	@Override
+	public void fireEmitter() {
+		Emitter emitter = new Emitter(parent.getCenter(), 10, 3, 15, "quark");
+		emitter.setSpreadRadial(new Vector2(1, 0));
+		emitter.setRandomness(4f);
+	}
+
+	@Override
+	public void playFireSound() {
+		SoundLoader.sounds.get("quarkgun").play();
 	}
 	
 	

@@ -3,8 +3,10 @@ package com.molecule.system.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.molecule.entity.Renderable;
 import com.molecule.entity.particle.Particle;
 import com.molecule.entity.particle.ParticleMod;
@@ -34,7 +36,15 @@ public class ParticleSlot{
 			renderer.getBatch().draw(buttonOn, x, y);
 		else
 			renderer.getBatch().draw(button, x, y);
-		renderer.getBatch().draw(contained.getImg().getTexture(), x + 50, y + 50, 100, 100);
+
+		Sprite s = contained.getImg();
+		
+		s.setPosition(x + 50, y + 50);
+		s.setSize(100, 100);
+		s.setColor(contained.getColor());
+		s.draw(renderer.getBatch());
+//		renderer.getBatch().draw(contained.getImg().getTexture(), x + 50, y + 50, 100, 100);
+		s.setSize(s.getTexture().getWidth(), s.getTexture().getHeight());
 		
 		nameFont.draw(renderer.getBatch(), contained.getName(), x + 280, y + 136);
 		

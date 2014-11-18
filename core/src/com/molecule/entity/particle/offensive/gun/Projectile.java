@@ -1,4 +1,4 @@
-package com.molecule.entity.particle.offensive;
+package com.molecule.entity.particle.offensive.gun;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
