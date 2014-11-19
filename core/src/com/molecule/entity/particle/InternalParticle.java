@@ -1,9 +1,11 @@
 package com.molecule.entity.particle;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.molecule.entity.granule.ParticleTrail;
 import com.molecule.entity.molecule.Nucleus;
+import com.molecule.system.Renderer;
 import com.molecule.system.Util;
 import com.molecule.system.util.GranuleBuffer;
 import com.molecule.system.util.TextureLoader;
@@ -15,6 +17,11 @@ public class InternalParticle extends Particle{
 		
 		img = new Sprite(TextureLoader.textures.get("particleint"));
 		
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
+		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
 	}
@@ -24,6 +31,11 @@ public class InternalParticle extends Particle{
 		
 		img = new Sprite(TextureLoader.textures.get("particleint"));
 
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
+		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
 		
@@ -35,6 +47,11 @@ public class InternalParticle extends Particle{
 		
 		img = new Sprite(TextureLoader.textures.get("particleint"));
 
+		tint = new Color(Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), Util.getFloat(0.1f, 1f), 1);
+		color.x = tint.r;
+		color.y = tint.g;
+		color.z = tint.b;
+		
 		drawOffsetX = img.getWidth() / 2;
 		drawOffsetY = img.getHeight() / 2;
 		
@@ -45,6 +62,8 @@ public class InternalParticle extends Particle{
 	public void draw(SpriteBatch batch){
 		float x = centerX - drawOffsetX;
 		float y = centerY - drawOffsetY;
+		
+		Renderer.getShader().setUniformf("color", color);
 		
 		img.setColor(tint);
 		img.setPosition(x, y);
